@@ -1,13 +1,12 @@
 import React from 'react'
 import { Layout } from '../../Components/Layout'
 
-function MyOrder() {
+function MyOrders() {
   return (
     <Layout>
-      MyOrder
-
+      MyOrders
     </Layout>
   )
 }
 
-export {MyOrder}
+export {MyOrders}

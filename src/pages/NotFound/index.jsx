@@ -1,13 +1,13 @@
 import React from 'react'
 import { Layout } from '../../Components/Layout'
 
-function MyOrder() {
+
+function NotFound() {
   return (
     <Layout>
-      MyOrder
-
+      NotFound
     </Layout>
   )
 }
 
-export {MyOrder}
+export {NotFound}
