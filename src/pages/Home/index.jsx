@@ -1,10 +1,15 @@
 import React from 'react'
 import { Layout } from '../../Components/Layout'
 import { Card } from '../../Components/Card'
+import { ProductDetail } from '../../Components/ProductDetail';
+import { ShoppingContext } from '../../Context';
 
 function Home() {
-  const API = 'https://api.escuelajs.co/api/v1/products';
+  const API = 'https://fakestoreapi.com/products';
   const [items, setItems] = React.useState(null);
+  const {
+    ifProductDetailOpen
+  } = React.useContext(ShoppingContext);
 
   React.useEffect(()=>{
     fetch(API)
@@ -25,6 +30,7 @@ function Home() {
         })
       }
       </div>
+      {ifProductDetailOpen && <ProductDetail />}
     </Layout>
   )
 }
