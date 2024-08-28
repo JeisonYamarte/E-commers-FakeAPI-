@@ -8,12 +8,21 @@ function Card({data}) {
     setCount,
     openProductDetail,
     setShowProduct,
+    setCartProducts,
+    cartProducts,
+    openCheckoutSideMenu,
   } = React.useContext(ShoppingContext);
 
 
   const setProductToShow = ()=>{
     openProductDetail();
     setShowProduct(data);
+  }
+
+  const addProductsToCart = (productData)=>{
+    setCartProducts([...cartProducts, productData]);
+    setCount(count + 1);
+    openCheckoutSideMenu();
   }
 
   return (
@@ -27,7 +36,7 @@ function Card({data}) {
             <button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-blue-500' 
             onClick={(event)=> {
               event.stopPropagation();
-              setCount(count + 1);
+              addProductsToCart(data);
               }}>
                 <PlusIcon />
             </button>
