@@ -6,10 +6,11 @@ function ProductDetail() {
     const {
         closeProductDetail,
         showProduct,
+        ifProductDetailOpen
     } = React.useContext(ShoppingContext); 
-    console.log('showProduct', showProduct)
+    
   return (
-    <aside className={`${showProduct ? 'flex' : 'hidden'}  fixed right-0 border border-black rounded-lg bg-white top-[68px] w-[360px] h-[calc(100vh-70px)]`}>
+    <aside className={`${ ifProductDetailOpen ? 'flex' : 'hidden'} flex-col  fixed right-0 border border-black rounded-lg bg-white top-[68px] w-[360px] h-[calc(100vh-70px)]`}>
         <div className='flex flex-col justify-between items-center p-6'>
             <div className='flex justify-between w-full'>
                 <h2 className='font-medium text-xl'>Detail</h2>
