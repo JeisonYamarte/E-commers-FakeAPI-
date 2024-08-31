@@ -20,7 +20,16 @@ function Card({data}) {
   }
 
   const addProductsToCart = (productData)=>{
-    setCartProducts([...cartProducts, productData]);
+    const productIndex = cartProducts.findIndex(product => product.id === productData.id)
+    let newCart = []
+    if (productIndex >= 0) {
+      newCart = [...cartProducts]
+      newCart[productIndex].quantity++
+      newCart[productIndex].price = productData.price + newCart[productIndex].price
+    } else {
+      newCart = [...cartProducts, { ...productData, quantity: 1 }]
+    }
+    setCartProducts(newCart)
     setCount(count + 1);
     openCheckoutSideMenu();
   }
