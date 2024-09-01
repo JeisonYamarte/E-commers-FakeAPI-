@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
@@ -13,12 +14,28 @@ function CheckoutSideMenu() {
         isCheckoutSideMenuOpen,
         count, 
         setCount,
+        setOrder,
+        order,
     } = React.useContext(ShoppingContext); 
 
     const handleDelete = (id, quant)=>{
         const filteredProducts = cartProducts.filter(product => product.id != id)
         setCartProducts(filteredProducts);
         setCount(count - quant);
+    }
+
+    const handleCheackout = ()=>{
+        const orderToAdd ={
+            date: '01.04.2024',
+            products: cartProducts,
+            totalProducts: cartProducts.lenght,
+            totalPrice: totalPrice(cartProducts),
+        }
+        
+        setOrder([...order, orderToAdd]);
+        setCartProducts([]);
+        setCount(0);
+        closeCheckoutSideMenu();
     }
 
   return (
@@ -30,7 +47,7 @@ function CheckoutSideMenu() {
                 onClick={() => closeCheckoutSideMenu()}
                 ><XMarkIcon className='w-7 h-7 '/></button>
             </div>
-            <div className=' grid grid-cols-1 grid-col auto-rows-max gap-2 overflow-y-scroll w-full h-[100vh]'>
+            <div className=' grid grid-cols-1 grid-col auto-rows-max gap-2 overflow-y-auto w-full h-[100vh]'>
                 {
                     cartProducts.map((product)=>(
                         <OrderCart 
@@ -49,8 +66,10 @@ function CheckoutSideMenu() {
                     <span className='font-light'>Total:</span>
                     <span className='font-medium text-2xl'>${totalPrice(cartProducts)}</span>
                 </p>
-
             </div>
+            <Link className='w-full' to='/my-orders/last'>
+            <button onClick={()=>handleCheackout()} className='w-full bg-black py-3 text-white rounded-lg'>Checkout</button>
+            </Link>
         </div>
     </aside>
   )
