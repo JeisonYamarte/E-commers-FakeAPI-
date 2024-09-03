@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid'
 import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
 import { totalPrice } from '../../Utils';
+import { dateTime } from '../../Utils';
 
 
 function CheckoutSideMenu() {
@@ -26,7 +27,7 @@ function CheckoutSideMenu() {
 
     const handleCheackout = ()=>{
         const orderToAdd ={
-            date: '01.04.2024',
+            date: dateTime(),
             products: cartProducts,
             totalProducts: cartProducts.lenght,
             totalPrice: totalPrice(cartProducts),
