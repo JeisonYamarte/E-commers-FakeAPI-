@@ -1,10 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { XMarkIcon } from '@heroicons/react/20/solid'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { XMarkIcon } from '@heroicons/react/20/solid';
 import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
-import { totalPrice } from '../../Utils';
-import { dateTime } from '../../Utils';
+import { totalPrice,  dateTime } from '../../Utils';
+import uniqid from 'uniqid'
+
 
 
 function CheckoutSideMenu() {
@@ -27,9 +28,10 @@ function CheckoutSideMenu() {
 
     const handleCheackout = ()=>{
         const orderToAdd ={
+            id: uniqid(),
             date: dateTime(),
             products: cartProducts,
-            totalProducts: cartProducts.lenght,
+            totalProducts: count,
             totalPrice: totalPrice(cartProducts),
         }
         

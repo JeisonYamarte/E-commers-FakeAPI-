@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Layout } from '../../Components/Layout'
 import {ShoppingContext } from '../../Context'
@@ -10,6 +11,15 @@ function MyOrder() {
   const {
     order,
   } = React.useContext(ShoppingContext);
+  const params = useParams();
+  const indexOrderPath = params.id;
+  console.log('currentPath', params);
+  console.log('indexOrderPath', indexOrderPath)
+
+  const currentPath = indexOrderPath === 'last' ? order?.slice(-1)[0] : order?.filter(order => order.id === indexOrderPath)[0] ;
+  
+  console.log('currentPath', currentPath)
+  
   return (
     <Layout>
       <div className='relative flex items-center justify-center w-80 mb-4 '>
@@ -20,7 +30,7 @@ function MyOrder() {
       </div>
       <div className='flex flex-col w-80 gap-3 rounded-lg'>
         {
-          order?.slice(-1)[0].products.map((product)=>(
+          currentPath?.products.map((product)=>(
             <OrderCart 
               key={product.id}
               id={product.id}
