@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ShoppingContext } from "../../Context";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 
 
@@ -9,6 +10,8 @@ function Navbar (){
     const {
         count,
         openCheckoutSideMenu,
+        setSearchByTitle,
+        searchByTitle,
     } = React.useContext(ShoppingContext);
     const activeStyle = 'underline underline-offset-4';
     return(
@@ -75,6 +78,16 @@ function Navbar (){
                     </NavLink>
                 </li>
             </ul>
+            <div className="flex items-center gap-1">
+                <MagnifyingGlassIcon className='w-4 h-4' />
+                <input 
+                onChange={(event)=> setSearchByTitle(event.target.value)
+                }
+                className=' bg-slate-200 rounded-lg w-40 h-8 p-4 focus:outline-none'
+                value={searchByTitle}
+                type="text" 
+                placeholder="Search a product" />
+            </div>
             
             <ul className="flex items-center gap-3">
                 <li className="text-black/60">

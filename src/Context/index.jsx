@@ -11,8 +11,22 @@ export const ShoppingCartProvider = ({children}) =>{
     const [showProduct, setShowProduct] = React.useState({});
     const [cartProducts, setCartProducts] = React.useState([]);
     const [order, setOrder] = React.useState([]);
+    const [items, setItems] = React.useState(null);
+    const [filteredItems, setFilteredItems] = React.useState([]);
+    const [searchByTitle, setSearchByTitle] = React.useState('');
     
 
+
+
+    const API = 'https://fakestoreapi.com/products';
+  
+
+    React.useEffect(()=>{
+      fetch(API)
+        .then(response => response.json())
+        .then(data => setItems(data));
+    },[])
+  
 
     const openProductDetail = () => {
         setIfProductDetailOpen(true);
@@ -27,7 +41,18 @@ export const ShoppingCartProvider = ({children}) =>{
     }
 
     const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
-    
+
+    const filterItemsByTitle = (items, searchByTitle) =>{
+        return items.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
+    }
+
+    React.useEffect(()=>{
+            if (searchByTitle.length > 0) {
+                setFilteredItems(filterItemsByTitle(items, searchByTitle));
+            } else {
+                setFilteredItems(items);
+            }
+    },[items, searchByTitle])
 
     return(
         <ShoppingContext.Provider value={{
@@ -45,6 +70,11 @@ export const ShoppingCartProvider = ({children}) =>{
             openCheckoutSideMenu,
             order,
             setOrder,
+            items,
+            setItems,
+            searchByTitle,
+            setSearchByTitle,
+            filteredItems,
         }}>
             {children}
         </ShoppingContext.Provider>
