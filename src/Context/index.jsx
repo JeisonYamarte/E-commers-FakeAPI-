@@ -20,13 +20,49 @@ export const ShoppingCartProvider = ({children}) =>{
 
     const API = 'https://fakestoreapi.com/products';
   
+    const changeCategory = (category) =>{
+        switch (category) {
+            case 'clothes':
+                React.useEffect(()=>{
+                    fetch(API + "/category/men's%20clothing")
+                      .then(response => response.json())
+                      .then(data =>  setItems(data));   
+                },[category])
+                break;
+            
+            case 'furnitures':
+                React.useEffect(()=>{
+                    fetch(API + "/category/women's%20clothing")
+                      .then(response => response.json())
+                      .then(data =>  setItems(data));   
+                },[category])
+                break;
 
-    React.useEffect(()=>{
-      fetch(API)
-        .then(response => response.json())
-        .then(data => setItems(data));
-    },[])
-  
+            case 'electronics':
+                React.useEffect(()=>{
+                    fetch(API + "/category/electronics")
+                      .then(response => response.json())
+                      .then(data => setItems(data));
+                },[category])
+                break;
+
+            case 'others':
+                React.useEffect(()=>{
+                    fetch(API + "/category/jewelery")
+                      .then(response => response.json())
+                      .then(data => setItems(data));
+                },[category])
+                break;
+            default:
+                React.useEffect(()=>{
+                    fetch(API)
+                      .then(response => response.json())
+                      .then(data => setItems(data));
+                  },[category])
+                break;
+        }
+
+    }
 
     const openProductDetail = () => {
         setIfProductDetailOpen(true);
@@ -46,9 +82,12 @@ export const ShoppingCartProvider = ({children}) =>{
         return items.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
     }
 
+    
+
     React.useEffect(()=>{
             if (searchByTitle.length > 0) {
                 setFilteredItems(filterItemsByTitle(items, searchByTitle));
+                console.log('filterItemsByTitle console', filterItemsByTitle(items, searchByTitle));
             } else {
                 setFilteredItems(items);
             }
@@ -75,6 +114,7 @@ export const ShoppingCartProvider = ({children}) =>{
             searchByTitle,
             setSearchByTitle,
             filteredItems,
+            changeCategory,
         }}>
             {children}
         </ShoppingContext.Provider>

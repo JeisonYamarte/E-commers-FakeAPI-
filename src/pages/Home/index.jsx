@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
 import { Layout } from '../../Components/Layout'
 import { Card } from '../../Components/Card'
 import { ShoppingContext } from '../../Context'
@@ -7,11 +8,24 @@ import { ShoppingContext } from '../../Context'
 function Home() {
   const {
     filteredItems,
+    changeCategory,
   } = React.useContext(ShoppingContext);
 
+  const params = useParams();
+  const indexIdPath = params.id
+  
+
+  if (!indexIdPath){
+    changeCategory('all');
+    console.log('indexIdPath', indexIdPath)
+  } else{
+    changeCategory(indexIdPath);
+    console.log('indexIdPath else', indexIdPath)
+  }
+ 
   console.log('filteredItems', filteredItems)
   const renderView = ()=>{
-    if (filteredItems.length > 0) {
+    if (filteredItems?.length > 0) {
       return (
         <>
         {
@@ -23,7 +37,7 @@ function Home() {
       ) 
     } else {
       return (
-        <>  We don't have anything </>
+        <div>  We don't have anything </div>
       )
     }
   }

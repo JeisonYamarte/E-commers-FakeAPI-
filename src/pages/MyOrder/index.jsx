@@ -13,12 +13,11 @@ function MyOrder() {
   } = React.useContext(ShoppingContext);
   const params = useParams();
   const indexOrderPath = params.id;
-  console.log('currentPath', params);
-  console.log('indexOrderPath', indexOrderPath)
+ 
 
   const currentPath = indexOrderPath === 'last' ? order?.slice(-1)[0] : order?.filter(order => order.id === indexOrderPath)[0] ;
   
-  console.log('currentPath', currentPath)
+  
   
   return (
     <Layout>
