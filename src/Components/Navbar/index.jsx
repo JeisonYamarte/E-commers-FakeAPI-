@@ -12,6 +12,7 @@ function Navbar (){
         openCheckoutSideMenu,
         setSearchByTitle,
         searchByTitle,
+        saveSignOut,
     } = React.useContext(ShoppingContext);
     const activeStyle = 'underline underline-offset-4';
     return(
@@ -116,8 +117,10 @@ function Navbar (){
                     to='/sign-in'
                     className={({isActive})=>
                         isActive ? activeStyle : undefined
-                    }>
-                        Sign In
+                    }
+                    onClick={()=> saveSignOut(true)}
+                    >
+                        Sign Out
                     </NavLink>
                 </li>
                 <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>

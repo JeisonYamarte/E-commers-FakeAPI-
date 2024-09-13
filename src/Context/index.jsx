@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useLocalStorage } from './useLocalStorage';
 
 export const ShoppingContext = React.createContext();
 
@@ -16,6 +16,15 @@ export const ShoppingCartProvider = ({children}) =>{
     const [searchByTitle, setSearchByTitle] = React.useState('');
     
 
+    const {
+        item: account,
+        saveItem: saveAccount,
+    } = useLocalStorage('ACCOUNT', {});
+
+    const {
+        item: signOut,
+        saveItem: saveSignOut,
+    } = useLocalStorage('SIGN-OUT', false);
 
 
     const API = 'https://fakestoreapi.com/products';
@@ -115,6 +124,10 @@ export const ShoppingCartProvider = ({children}) =>{
             setSearchByTitle,
             filteredItems,
             changeCategory,
+            account,
+            saveAccount,
+            signOut,
+            saveSignOut,
         }}>
             {children}
         </ShoppingContext.Provider>
