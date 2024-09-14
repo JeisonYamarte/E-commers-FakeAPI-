@@ -96,7 +96,7 @@ export const ShoppingCartProvider = ({children}) =>{
     React.useEffect(()=>{
             if (searchByTitle.length > 0) {
                 setFilteredItems(filterItemsByTitle(items, searchByTitle));
-                console.log('filterItemsByTitle console', filterItemsByTitle(items, searchByTitle));
+               
             } else {
                 setFilteredItems(items);
             }

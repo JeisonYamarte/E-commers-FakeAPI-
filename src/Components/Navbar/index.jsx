@@ -13,8 +13,67 @@ function Navbar (){
         setSearchByTitle,
         searchByTitle,
         saveSignOut,
+        signOut,
     } = React.useContext(ShoppingContext);
     const activeStyle = 'underline underline-offset-4';
+
+    const renderView = ()=>{
+        if(signOut){
+            return(
+                <li>
+                    <NavLink
+                    to='/sign-in'
+                    className={({isActive})=>
+                        isActive ? activeStyle : undefined
+                    }
+                    onClick={()=> saveSignOut(true)}
+                    >
+                        Sign Out
+                    </NavLink>
+                </li>
+            )
+        } else{
+            return(
+                <>
+                <li className="text-black/60">
+                    jeisonyamarte9@gmail.com
+                </li>
+                <li>
+                    <NavLink
+                    to='/my-orders'
+                    className={({isActive})=>
+                        isActive ? activeStyle : undefined
+                    }>
+                        My Orders
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                    to='/my-account'
+                    className={({isActive})=>
+                        isActive ? activeStyle : undefined
+                    }>
+                        My account
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                    to='/sign-in'
+                    className={({isActive})=>
+                        isActive ? activeStyle : undefined
+                    }
+                    onClick={()=> saveSignOut(true)}
+                    >
+                        Sign Out
+                    </NavLink>
+                </li>
+            </>
+            )
+        }
+    }
+
+
+
     return(
         <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
             <ul className="flex items-center gap-3">
@@ -91,38 +150,7 @@ function Navbar (){
             </div>
             
             <ul className="flex items-center gap-3">
-                <li className="text-black/60">
-                    jeisonyamarte9@gmail.com
-                </li>
-                <li>
-                    <NavLink
-                    to='/my-orders'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }>
-                        My Orders
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                    to='/my-account'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }>
-                        My account
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                    to='/sign-in'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }
-                    onClick={()=> saveSignOut(true)}
-                    >
-                        Sign Out
-                    </NavLink>
-                </li>
+                {renderView()}
                 <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>
                     <ShoppingCartIcon className='w-4 h-4'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                 </li>

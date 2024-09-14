@@ -7,9 +7,9 @@ const useLocalStorage = (itemName, initialValue) => {
 
   React.useEffect(()=>{
     
-        console.log('initialValue', initialValue)
+        
         const localStorageItem = localStorage.getItem(itemName);
-        console.log('localStorageItem', localStorageItem);
+        
         let parsedItem;
     
         
