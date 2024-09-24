@@ -24,7 +24,7 @@ export const ShoppingCartProvider = ({children}) =>{
     const {
         item: signOut,
         saveItem: saveSignOut,
-    } = useLocalStorage('SIGN-OUT', false);
+    } = useLocalStorage('SIGN-OUT', true);
 
 
     const API = 'https://fakestoreapi.com/products';

@@ -15,62 +15,75 @@ function Navbar (){
         saveSignOut,
         signOut,
     } = React.useContext(ShoppingContext);
+
+    const [view, setView] = React.useState(null)
+
     const activeStyle = 'underline underline-offset-4';
 
-    const renderView = ()=>{
-        if(signOut){
-            return(
-                <li>
-                    <NavLink
-                    to='/sign-in'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }
-                    onClick={()=> saveSignOut(true)}
-                    >
-                        Sign Out
-                    </NavLink>
-                </li>
-            )
-        } else{
-            return(
-                <>
-                <li className="text-black/60">
-                    jeisonyamarte9@gmail.com
-                </li>
-                <li>
-                    <NavLink
-                    to='/my-orders'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }>
-                        My Orders
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                    to='/my-account'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }>
-                        My account
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink
-                    to='/sign-in'
-                    className={({isActive})=>
-                        isActive ? activeStyle : undefined
-                    }
-                    onClick={()=> saveSignOut(true)}
-                    >
-                        Sign Out
-                    </NavLink>
-                </li>
-            </>
-            )
+    
+    
+
+    React.useLayoutEffect(()=>{
+        const renderView = ()=>{
+            if(signOut){
+                return(
+                    <li>
+                        <NavLink
+                        to='/sign-in'
+                        className={({isActive})=>
+                            isActive ? activeStyle : undefined
+                        }
+                        onClick={()=>{saveSignOut(true);}}
+                        >
+                            Sign Out
+                        </NavLink>
+                    </li>
+                )
+            } else{
+                return(
+                    <>
+                    <li className="text-black/60">
+                        jeisonyamarte9@gmail.com
+                    </li>
+                    <li>
+                        <NavLink
+                        to='/my-orders'
+                        className={({isActive})=>
+                            isActive ? activeStyle : undefined
+                        }>
+                            My Orders
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                        to='/my-account'
+                        className={({isActive})=>
+                            isActive ? activeStyle : undefined
+                        }>
+                            My account
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                        to='/sign-in'
+                        className={({isActive})=>
+                            isActive ? activeStyle : undefined
+                        }
+                        onClick={()=>{
+                                saveSignOut(true);
+                        }}
+                        >
+                            Sign Out
+                        </NavLink>
+                    </li>
+                </>
+                )
+            }
         }
-    }
+    
+       setView(renderView());
+    }, [signOut])
+    
 
 
 
@@ -150,7 +163,9 @@ function Navbar (){
             </div>
             
             <ul className="flex items-center gap-3">
-                {renderView()}
+                {  
+                view
+                }
                 <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>
                     <ShoppingCartIcon className='w-4 h-4'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                 </li>
