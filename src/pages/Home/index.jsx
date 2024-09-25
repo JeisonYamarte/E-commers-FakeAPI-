@@ -13,7 +13,7 @@ function Home() {
 
   const params = useParams();
   const indexIdPath = params.id
-  
+  console.log('params', params)
 
   if (!indexIdPath){
     changeCategory('all');
@@ -22,6 +22,7 @@ function Home() {
     changeCategory(indexIdPath);
    
   }
+  console.log('indexIdPath', indexIdPath)
  
  
   const renderView = ()=>{
