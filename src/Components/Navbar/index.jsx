@@ -9,6 +9,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 function Navbar (){
     const {
         count,
+        account,
         openCheckoutSideMenu,
         setSearchByTitle,
         searchByTitle,
@@ -43,7 +44,7 @@ function Navbar (){
                 return(
                     <>
                     <li className="text-black/60">
-                        jeisonyamarte9@gmail.com
+                        {account?.email}
                     </li>
                     <li>
                         <NavLink
@@ -88,7 +89,7 @@ function Navbar (){
 
 
     return(
-        <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
+        <nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white">
             <ul className="flex items-center gap-3">
                 <li className="font-semibold text-lg">
                     <NavLink
