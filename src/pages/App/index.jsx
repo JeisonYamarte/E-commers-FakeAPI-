@@ -20,7 +20,6 @@ const AppRoutes = () =>{
   const {
     signOut,
   } = React.useContext(ShoppingContext);
-  console.log('signOut', signOut)
   let routes = useRoutes([
     { path: '/', element: signOut == false ? <Home /> : <Navigate replace to={'/sign-in'} />},
     { path: '/:id', element: signOut == false ? <Home /> : <Navigate replace to={'/sign-in'} />},

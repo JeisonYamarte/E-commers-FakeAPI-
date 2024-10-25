@@ -14,6 +14,7 @@ export const ShoppingCartProvider = ({children}) =>{
     const [items, setItems] = React.useState(null);
     const [filteredItems, setFilteredItems] = React.useState([]);
     const [searchByTitle, setSearchByTitle] = React.useState('');
+    const [isLoading, setIsLoading] = React.useState(false);
     
 
     const {
@@ -30,43 +31,64 @@ export const ShoppingCartProvider = ({children}) =>{
     const API = 'https://fakestoreapi.com/products';
   
     const changeCategory = (category) =>{
+        
         switch (category) {
             case 'clothes':
                 React.useEffect(()=>{
-                    fetch(API + "/category/men's%20clothing")
+                    setIsLoading(true)
+                     fetch(API + "/category/men's%20clothing")
                       .then(response => response.json())
-                      .then(data =>  setItems(data));   
+                      .then(async data => {
+                            setItems(data);
+                            setIsLoading(false);
+                        });   
                 },[category])
                 break;
             
             case 'furnitures':
                 React.useEffect(()=>{
+                    setIsLoading(true)
                     fetch(API + "/category/women's%20clothing")
                       .then(response => response.json())
-                      .then(data =>  setItems(data));   
+                      .then(data =>  {
+                            setItems(data);
+                            setIsLoading(false);
+                        });   
                 },[category])
                 break;
 
             case 'electronics':
                 React.useEffect(()=>{
+                    setIsLoading(true)
                     fetch(API + "/category/electronics")
                       .then(response => response.json())
-                      .then(data => setItems(data));
+                      .then(data => {
+                            setItems(data);
+                            setIsLoading(false);
+                        });
                 },[category])
                 break;
 
             case 'others':
                 React.useEffect(()=>{
+                    setIsLoading(true)
                     fetch(API + "/category/jewelery")
                       .then(response => response.json())
-                      .then(data => setItems(data));
+                      .then(data => {
+                            setItems(data);
+                            setIsLoading(false);
+                        });
                 },[category])
                 break;
             default:
                 React.useEffect(()=>{
+                    setIsLoading(true)
                     fetch(API)
                       .then(response => response.json())
-                      .then(data => setItems(data));
+                      .then(data => {
+                            setItems(data);
+                            setIsLoading(false);
+                        });
                   },[category])
                 break;
         }
@@ -128,6 +150,7 @@ export const ShoppingCartProvider = ({children}) =>{
             saveAccount,
             signOut,
             saveSignOut,
+            isLoading,
         }}>
             {children}
         </ShoppingContext.Provider>

@@ -3,39 +3,46 @@ import { useParams } from 'react-router-dom';
 import { Layout } from '../../Components/Layout'
 import { Card } from '../../Components/Card'
 import { ShoppingContext } from '../../Context'
+import { LoadingCard } from '../../Components/LoadingCard';
 
 
 function Home() {
   const {
     filteredItems,
     changeCategory,
+    isLoading,
   } = React.useContext(ShoppingContext);
 
   const params = useParams();
   const indexIdPath = params.id
-  console.log('params', params)
+  
 
   if (!indexIdPath){
     changeCategory('all');
     
   } else{
     changeCategory(indexIdPath);
-   
   }
-  console.log('indexIdPath', indexIdPath)
+ 
  
  
   const renderView = ()=>{
-    if (filteredItems?.length > 0) {
-      return (
-        <>
+    if (isLoading === true) {
+      return (<>
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+        <LoadingCard />
+      </>
+      ) 
+    } else if( filteredItems?.length > 0){
+      return(<>
         {
           filteredItems?.map((item)=>{
             return <Card key={item.id} data={item} />
           })
         }
-      </>
-      ) 
+      </>)
     } else {
       return (
         <div>  We don't have anything </div>
