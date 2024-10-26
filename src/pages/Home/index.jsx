@@ -56,7 +56,7 @@ function Home() {
         <h1 className='font-medium text-xl'>Excluive Products</h1>
       </div>
 
-      <div className='grid gap-4 grid-cols-4 w-full max-w-screen-lg'>
+      <div className='grid gap-4 lg:p-0 lg:grid-cols-4 p-5 w-full max-w-screen-lg grid-cols-2'>
       {
         renderView()
       }
