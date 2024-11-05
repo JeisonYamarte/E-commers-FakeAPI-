@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { ShoppingContext } from "../../Context";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Modal } from "../Modal";
 
 
@@ -31,7 +31,7 @@ function Navbar (){
         const renderView = ()=>{
             if(signOut){
                 return(
-                    <li>
+                    <li onClick={()=> setActiveModalSession(false)}>
                         <NavLink
                         to='/sign-in'
                         className={({isActive})=>
@@ -49,7 +49,7 @@ function Navbar (){
                     <li className="text-black/60">
                         {account?.email}
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalSession(false)}>
                         <NavLink
                         to='/my-orders'
                         className={({isActive})=>
@@ -58,7 +58,7 @@ function Navbar (){
                             My Orders
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalSession(false)}>
                         <NavLink
                         to='/my-account'
                         className={({isActive})=>
@@ -67,7 +67,7 @@ function Navbar (){
                             My account
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalSession(false)}>
                         <NavLink
                         to='/sign-in'
                         className={({isActive})=>
@@ -156,27 +156,27 @@ function Navbar (){
                 </li>
             </ul>
 
-            <ul className="lg:hidden flex items-center gap-3">
+            <ul className="lg:hidden cursor-pointer flex items-center gap-3">
                 <li className="font-semibold text-lg">
                     <NavLink
                     to={`${ signOut ? "/sign-in" : "/" }`}>
                         shopi
                     </NavLink>
                 </li>
-                <li onClick={()=> setActiveModalCategory(!activeModalCategory)}>
-                    button
+                <li className="flex font-medium text-sm" onClick={()=> setActiveModalCategory(!activeModalCategory)}>
+                    Categorias <ChevronDownIcon className="w-5 h-5" />
                 </li>
             </ul>
 
             {activeModalCategory && <Modal>
-                    <ul className="flex items-center gap-3">
-                    <li className="font-semibold text-lg">
+                    <ul className=" bg-white flex flex-col items-center w-1/4 gap-3 w-200 h-auto m-auto p-2 rounded-lg">
+                    <li onClick={()=> setActiveModalCategory(false)} className="font-semibold text-lg">
                         <NavLink
                         to={`${ signOut ? "/sign-in" : "/" }`}>
                             shopi
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/'
                         className={({isActive})=>
@@ -185,7 +185,7 @@ function Navbar (){
                             All
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/clothes'
                         className={({isActive})=>
@@ -194,7 +194,7 @@ function Navbar (){
                             Clothes
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/electronics'
                         className={({isActive})=>
@@ -203,7 +203,7 @@ function Navbar (){
                             Electronics
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/furnitures'
                         className={({isActive})=>
@@ -212,7 +212,7 @@ function Navbar (){
                             Furnitures
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/toys'
                         className={({isActive})=>
@@ -221,7 +221,7 @@ function Navbar (){
                             Toys
                         </NavLink>
                     </li>
-                    <li>
+                    <li onClick={()=> setActiveModalCategory(false)}>
                         <NavLink
                         to='/others'
                         className={({isActive})=>
@@ -244,21 +244,24 @@ function Navbar (){
                 placeholder="Search a product" />
             </div>
 
-            <ul className="lg:hidden flex items-center gap-3">
+            <ul className="lg:hidden cursor-pointer flex items-center gap-3">
                 
-                <li onClick={()=> setActiveModalSession(!activeModalSession)}>
-                    button de sesion
+                <li className="flex font-medium text-sm" onClick={()=> setActiveModalSession(!activeModalSession)}>
+                    Sesion <ChevronDownIcon className="w-5 h-5" />
                 </li>
 
 
             </ul>
 
             {activeModalSession && <Modal>
-                <ul className="flex items-center gap-3">
+                <ul className=" bg-white flex flex-col items-center gap-3 w-200 h-auto m-auto p-2 rounded-lg">
                     {  
                     view
                     }
-                    <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>
+                    <li onClick={()=> {
+                        openCheckoutSideMenu();
+                        setActiveModalSession(false);
+                    }} className='flex cursor-pointer'>
                         <ShoppingCartIcon className='w-4 h-4'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                     </li>
                 </ul>
