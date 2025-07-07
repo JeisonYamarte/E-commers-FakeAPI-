@@ -41,8 +41,8 @@ function App() {
   return (
     <ShoppingCartProvider>
       <BrowserRouter>
-        <AppRoutes />
         <Navbar />
+        <AppRoutes />
         <ProductDetail />
         <CheckoutSideMenu />
       </BrowserRouter>

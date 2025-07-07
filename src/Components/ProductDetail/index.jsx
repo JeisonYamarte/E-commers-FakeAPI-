@@ -22,11 +22,11 @@ function ProductDetail() {
                 <figure className='w-full h-[300px]'>
                     <img className='w-full h-full rounded-lg object-contain' 
                     src={showProduct.image} 
-                    alt={showProduct.title}/>
+                    alt={showProduct.name}/>
                 </figure>
                 <p className='flex flex-col'>
                     <span className='font-medium text-2xl'>${showProduct.price}</span>
-                    <span className='font-medium text-md'>{showProduct.title}</span>
+                    <span className='font-medium text-md'>{showProduct.name}</span>
                     <span className='font-light text-sm'>{showProduct.description}</span>
                 </p>
             </div>

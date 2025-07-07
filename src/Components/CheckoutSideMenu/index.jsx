@@ -56,11 +56,11 @@ function CheckoutSideMenu() {
                         <OrderCart 
                         key={product.id}
                         id={product.id}
-                        title={product.title} 
+                        name={product.name} 
                         imageUrl={product.image} 
                         price={product.price} 
                         quantity={product.quantity}
-                        handleDelete={handleDelete}e/>
+                        handleDelete={handleDelete}/>
                     ))
                 }
                 </div>

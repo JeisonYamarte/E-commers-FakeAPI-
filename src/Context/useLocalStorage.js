@@ -21,14 +21,14 @@ const useLocalStorage = (itemName, initialValue) => {
           setItem(parsedItem);
     
         }
-       
+      
       
       
   
   },[])
 
   const saveItem = (newItem) => {
-   localStorage.setItem(itemName, JSON.stringify(newItem));
+  localStorage.setItem(itemName, JSON.stringify(newItem));
     
       setItem(newItem);   
   }

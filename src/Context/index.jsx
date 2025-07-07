@@ -28,7 +28,9 @@ export const ShoppingCartProvider = ({children}) =>{
     } = useLocalStorage('SIGN-OUT', true);
 
 
-    const API = 'https://fakestoreapi.com/products';
+    const API = import.meta.env.VITE_BACKEND_URL + '/api/v1/products';
+    
+    
   
     const changeCategory = (category) =>{
         
@@ -36,7 +38,7 @@ export const ShoppingCartProvider = ({children}) =>{
             case 'clothes':
                 React.useEffect(()=>{
                     setIsLoading(true)
-                     fetch(API + "/category/men's%20clothing")
+                    fetch(API + "/category/men's%20clothing")
                       .then(response => response.json())
                       .then(async data => {
                             setItems(data);
@@ -110,7 +112,7 @@ export const ShoppingCartProvider = ({children}) =>{
     const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
     const filterItemsByTitle = (items, searchByTitle) =>{
-        return items.filter(item => item.title.toLowerCase().includes(searchByTitle.toLowerCase()));
+        return items.filter(item => item.name.toLowerCase().includes(searchByTitle.toLowerCase()));
     }
 
     
@@ -118,7 +120,7 @@ export const ShoppingCartProvider = ({children}) =>{
     React.useEffect(()=>{
             if (searchByTitle.length > 0) {
                 setFilteredItems(filterItemsByTitle(items, searchByTitle));
-               
+            
             } else {
                 setFilteredItems(items);
             }
