@@ -9,7 +9,7 @@ import { LoadingCard } from '../../Components/LoadingCard';
 function Home() {
   const {
     filteredItems,
-    changeCategory,
+    setCategory,
     isLoading,
   } = React.useContext(ShoppingContext);
 
@@ -18,14 +18,14 @@ function Home() {
   
 
   if (!indexIdPath){
-    changeCategory('all');
+    setCategory('all');
     
   } else{
-    changeCategory(indexIdPath);
+    setCategory(indexIdPath);
   }
- 
- 
- 
+
+
+
   const renderView = ()=>{
     if (isLoading === true) {
       return (<>

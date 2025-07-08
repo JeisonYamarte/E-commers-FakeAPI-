@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocalStorage } from './useLocalStorage';
+import { getProducts, getSearchProducts } from '../api/products';
 
 export const ShoppingContext = React.createContext();
 
@@ -11,10 +12,11 @@ export const ShoppingCartProvider = ({children}) =>{
     const [showProduct, setShowProduct] = React.useState({});
     const [cartProducts, setCartProducts] = React.useState([]);
     const [order, setOrder] = React.useState([]);
-    const [items, setItems] = React.useState(null);
+    const [itemsToShow, setItemsToShow] = React.useState(null);// handle for home
     const [filteredItems, setFilteredItems] = React.useState([]);
     const [searchByTitle, setSearchByTitle] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
+    const [category, setCategory] = React.useState('all');
     
 
     const {
@@ -28,74 +30,23 @@ export const ShoppingCartProvider = ({children}) =>{
     } = useLocalStorage('SIGN-OUT', true);
 
 
-    const API = import.meta.env.VITE_BACKEND_URL + '/api/v1/products';
+    const API = import.meta.env.VITE_BACKEND_URL + '/api/v1';
     
     
-  
-    const changeCategory = (category) =>{
-        
-        switch (category) {
-            case 'clothes':
-                React.useEffect(()=>{
-                    setIsLoading(true)
-                    fetch(API + "/category/men's%20clothing")
-                      .then(response => response.json())
-                      .then(async data => {
-                            setItems(data);
-                            setIsLoading(false);
-                        });   
-                },[category])
-                break;
-            
-            case 'furnitures':
-                React.useEffect(()=>{
-                    setIsLoading(true)
-                    fetch(API + "/category/women's%20clothing")
-                      .then(response => response.json())
-                      .then(data =>  {
-                            setItems(data);
-                            setIsLoading(false);
-                        });   
-                },[category])
-                break;
 
-            case 'electronics':
-                React.useEffect(()=>{
-                    setIsLoading(true)
-                    fetch(API + "/category/electronics")
-                      .then(response => response.json())
-                      .then(data => {
-                            setItems(data);
-                            setIsLoading(false);
-                        });
-                },[category])
-                break;
-
-            case 'others':
-                React.useEffect(()=>{
-                    setIsLoading(true)
-                    fetch(API + "/category/jewelery")
-                      .then(response => response.json())
-                      .then(data => {
-                            setItems(data);
-                            setIsLoading(false);
-                        });
-                },[category])
-                break;
-            default:
-                React.useEffect(()=>{
-                    setIsLoading(true)
-                    fetch(API)
-                      .then(response => response.json())
-                      .then(data => {
-                            setItems(data);
-                            setIsLoading(false);
-                        });
-                  },[category])
-                break;
-        }
-
-    }
+React.useEffect(() => {
+    setIsLoading(true);
+    getProducts(category)
+        .then((data)=>{
+            setItemsToShow(data);
+        })
+        .catch((error) => {
+            console.error("Error fetching products:", error);
+        })
+        .finally(() => {
+            setIsLoading(false);
+        })
+    }, [category]);
 
     const openProductDetail = () => {
         setIfProductDetailOpen(true);
@@ -118,13 +69,32 @@ export const ShoppingCartProvider = ({children}) =>{
     
 
     React.useEffect(()=>{
-            if (searchByTitle.length > 0) {
-                setFilteredItems(filterItemsByTitle(items, searchByTitle));
-            
+            setIsLoading(true);
+            if (searchByTitle) {
+                getSearchProducts(searchByTitle)
+                .then((data)=>{
+                    console.log("Search products data:", data);
+                    setFilteredItems(data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching search products:", error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                })
             } else {
-                setFilteredItems(items);
+                getProducts(category)
+                .then((data)=>{
+                    setFilteredItems(data);
+                })
+                .catch((error) => { 
+                    console.error("Error fetching products:", error);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                })
             }
-    },[items, searchByTitle])
+    },[searchByTitle])
 
     return(
         <ShoppingContext.Provider value={{
@@ -142,12 +112,12 @@ export const ShoppingCartProvider = ({children}) =>{
             openCheckoutSideMenu,
             order,
             setOrder,
-            items,
-            setItems,
+            itemsToShow,
+            setItemsToShow,
             searchByTitle,
             setSearchByTitle,
             filteredItems,
-            changeCategory,
+            setCategory,
             account,
             saveAccount,
             signOut,
