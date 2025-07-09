@@ -17,6 +17,8 @@ export const ShoppingCartProvider = ({children}) =>{
     const [searchByTitle, setSearchByTitle] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     const [category, setCategory] = React.useState('all');
+
+    const [accountData, setAccountData] = React.useState({});
     
 
     const {
@@ -62,9 +64,6 @@ React.useEffect(() => {
 
     const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
-    const filterItemsByTitle = (items, searchByTitle) =>{
-        return items.filter(item => item.name.toLowerCase().includes(searchByTitle.toLowerCase()));
-    }
 
     
 
@@ -123,6 +122,8 @@ React.useEffect(() => {
             signOut,
             saveSignOut,
             isLoading,
+            accountData,
+            setAccountData,
         }}>
             {children}
         </ShoppingContext.Provider>

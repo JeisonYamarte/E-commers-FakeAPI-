@@ -2,13 +2,15 @@ import React from 'react'
 import { Layout } from '../../Components/Layout'
 import { Link, Navigate } from 'react-router-dom'
 import { ShoppingContext } from '../../Context'
+import {createAccount} from '../../api/accounts'
 
 
 function SignIn() {
   const {
     account,
     saveAccount,
-    saveSignOut
+    saveSignOut,
+    setAccountData
   } = React.useContext(ShoppingContext);
 
   const [render, setRender] = React.useState('user-info')
@@ -17,14 +19,24 @@ function SignIn() {
 
   const hasUserAnAccount = Object.keys(account).length > 0 ? true : false;
 
-  const saveNewAccount = ()=>{
+  const saveNewAccount = async ()=>{
     const formData = new FormData(form.current);
     const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password')
+      name: formData.get('name').trim(),
+      lastName: formData.get('lastName').trim(),
+      address: formData.get('address').trim(),
+      phone: formData.get('phone').trim(),
+      user: {
+        email: formData.get('email').trim(),
+        password: formData.get('password') 
+      }
     }
-    saveAccount(data);
+    console.log(data);
+    const response = await createAccount(data)
+    console.log(response);
+    
+    setAccountData(response);
+    saveAccount(response);
     saveSignOut(false);
   }
 
@@ -78,8 +90,34 @@ function SignIn() {
           type="text" 
           name="name" 
           id='name' 
-          defaultValue={account?.name} 
-          placeholder='Alejandro Caldera' />
+          placeholder='Alejandro' />
+        </div>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="lastName">Your last name:</label>
+          <input  
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="text" 
+          name="lastName" 
+          id='lastName'  
+          placeholder='Rodriguez' />
+        </div>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="address">Your address:</label>
+          <input  
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="text" 
+          name="address" 
+          id='address'  
+          placeholder='carrera 560' />
+        </div>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="phone">Your phone:</label>
+          <input  
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="text" 
+          name="phone" 
+          id='phone'  
+          placeholder='097965175' />
         </div>
         <div className='flex flex-col gap-1'>
           <label className='font-light text-sm' htmlFor="email">Your email</label>
@@ -87,8 +125,7 @@ function SignIn() {
           className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
           type="email" 
           name="email" 
-          id='email' 
-          defaultValue={account?.email} 
+          id='email'  
           placeholder='tuCorreo@gmail.com' />
         </div>
         <div className='flex flex-col gap-1'>
@@ -98,7 +135,6 @@ function SignIn() {
           type="password" 
           name="password" 
           id='password' 
-          defaultValue={account?.password} 
           placeholder='********' />
         </div>
         <Link to='/'>
