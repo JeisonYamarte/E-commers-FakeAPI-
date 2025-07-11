@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { getProducts, getSearchProducts } from '../api/products';
+import { getAccountData } from '../api/accounts';
 
 export const ShoppingContext = React.createContext();
 
@@ -24,7 +25,7 @@ export const ShoppingCartProvider = ({children}) =>{
     const {
         item: account,
         saveItem: saveAccount,
-    } = useLocalStorage('ACCOUNT', {});
+    } = useLocalStorage('TOKEN', {});
 
     const {
         item: signOut,
@@ -34,7 +35,15 @@ export const ShoppingCartProvider = ({children}) =>{
 
     const API = import.meta.env.VITE_BACKEND_URL + '/api/v1';
     
-    
+    const getAccount = async () => {
+        try {
+            const data = await getAccountData();
+            setAccountData(data);
+        } catch (error) {
+            console.error("Error fetching account data:", error);
+        }
+    }
+
 
 React.useEffect(() => {
     setIsLoading(true);
@@ -124,6 +133,7 @@ React.useEffect(() => {
             isLoading,
             accountData,
             setAccountData,
+            getAccount
         }}>
             {children}
         </ShoppingContext.Provider>

@@ -1,42 +1,54 @@
 import React from 'react'
 import { Layout } from '../../Components/Layout'
 import { ShoppingContext } from '../../Context'
+import { updateAccountData } from '../../api/accounts';
+
 
 
 function MyAccount() {
   const {
     account,
-    saveAccount,
+    accountData,
+    getAccount
   } = React.useContext(ShoppingContext);
 
   const [render, setRender] = React.useState('user-info')
-
+  
+  React.useEffect(() => {
+      getAccount();
+  }, []);
+  
   const form = React.useRef(null)
 
   const hasUserAnAccount = Object.keys(account).length > 0 ? true : false;
 
-  const saveNewAccount = ()=>{
+  const saveNewAccount = async ()=>{
     const formData = new FormData(form.current);
     const data = {
       name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password')
+      lastName: formData.get('lastName'),
+      phone: formData.get('phone'),
+      address: formData.get('address')
     }
-    saveAccount(data);
-    setRender('user-info')
+    const response = await updateAccountData(data, accountData?.customer?.id)
+    
+    console.log(response);
+    
+    //setRender('user-info')
   }
 
 
   const renderEditView = ()=>{
+    
     return(
       <div className='flex flex-col w-80'>
     <p>
       <span className='font-light text-sm '>Name: </span> 
-      <span>{Object.keys(account).length > 0 ? account?.name : 'No account'}</span>
+      <span>{Object.keys(account).length >= 0 ? accountData?.customer?.name : 'No account'}</span>
     </p>
     <p>
     <span className='font-light text-sm'>Email: </span>
-    <span>{Object.keys(account).length > 0 ? account?.email : 'No account'}</span>
+    <span>{accountData?.email}</span>
     </p>
 
     <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={!hasUserAnAccount}
@@ -49,45 +61,55 @@ function MyAccount() {
   }
   
   const renderSaveEditInfo = ()=>{
+    
     return(
-      <form ref={form} className='flex flex-col gap-4 w-80'>
+      <form ref={form} onSubmit={()=>{saveNewAccount()}} className='flex flex-col gap-4 w-80'>
         <div className='flex flex-col gap-1'>
-          <label className='font-light text-sm' htmlFor="name">Your name:</label>
+          <label className='font-light text-sm' htmlFor="name">name:</label>
           <input  
           className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
           type="text" 
           name="name" 
+          defaultChecked={accountData?.customer?.name || ''}
           id='name' 
-          defaultValue={account?.name} 
-          placeholder='Alejandro Caldera' />
+          placeholder={accountData?.customer?.name || ''} />
         </div>
         <div className='flex flex-col gap-1'>
-          <label className='font-light text-sm' htmlFor="email">Your email</label>
+          <label className='font-light text-sm' htmlFor="LastName">Last Name</label>
           <input 
           className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-          type="email" 
-          name="email" 
-          id='email' 
-          defaultValue={account?.email} 
-          placeholder='tuCorreo@gmail.com' />
+          type="text" 
+          name="lastName" 
+          id='lastName' 
+          defaultChecked={accountData?.customer?.lastName || ''}
+          placeholder={accountData?.customer?.lastName || ''} />
         </div>
         <div className='flex flex-col gap-1'>
-          <label className='font-light text-sm' htmlFor="password">Your password</label>
+          <label className='font-light text-sm' htmlFor="phone">Phone</label>
           <input 
           className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-          type="password" 
-          name="password" 
-          id='password' 
-          defaultValue={account?.password} 
-          placeholder='********' />
+          type="text" 
+          name="phone" 
+          id='phone' 
+          defaultChecked={accountData?.customer?.phone || ''}
+          placeholder={accountData?.customer?.phone || ''} />
+        </div>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="address">Address</label>
+          <input 
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="text" 
+          name="address" 
+          id='address' 
+          defaultChecked={accountData?.customer?.address || ''}
+          placeholder={accountData?.customer?.address || ''} />
         </div>
         
           <button 
           className='bg-black text-white rounded-lg w-full py-3'
-          onClick={()=> saveNewAccount()}>
+          type='submit'>
             Create
           </button>
-       
       </form>
     )
     

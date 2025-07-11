@@ -1,8 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../Components/Layout'
-import { Link, Navigate } from 'react-router-dom'
 import { ShoppingContext } from '../../Context'
-import {createAccount} from '../../api/accounts'
+import {createAccount, logInAccount} from '../../api/accounts'
+import { setAuthToken } from '../../api/axiosConfig';
 
 
 function SignIn() {
@@ -10,16 +11,18 @@ function SignIn() {
     account,
     saveAccount,
     saveSignOut,
-    setAccountData
   } = React.useContext(ShoppingContext);
 
   const [render, setRender] = React.useState('user-info')
+  const [showInvalidCredentials, setShowInvalidCredentials] = React.useState(false);
 
   const form = React.useRef(null)
+  const navigate = useNavigate();
 
   const hasUserAnAccount = Object.keys(account).length > 0 ? true : false;
 
   const saveNewAccount = async ()=>{
+    
     const formData = new FormData(form.current);
     const data = {
       name: formData.get('name').trim(),
@@ -31,58 +34,92 @@ function SignIn() {
         password: formData.get('password') 
       }
     }
-    console.log(data);
-    const response = await createAccount(data)
-    console.log(response);
     
-    setAccountData(response);
+    const response = await createAccount(data)
+    
+    
     saveAccount(response);
     saveSignOut(false);
+    setAuthToken(response);
+    navigate('/');
   }
 
-  const handleSignIn = ()=>{
+  const handleSignIn = async ()=>{
     saveSignOut(false);
+    const formData = new FormData(form.current);
+    const data = {
+      email: formData.get('email').trim(),
+      password: formData.get('password') 
+    }
 
-    return <Navigate replace to='/' />
+    const response = await logInAccount(data);
+
+    if(!response){
+      setShowInvalidCredentials(true);
+    } else {
+      saveAccount(response);
+      setAuthToken(response);
+      navigate('/');
+    }
   }
 
   const renderLogIn = ()=>{
     return(
-      <div className='flex flex-col w-80'>
-    <p>
-      <span className='font-light text-sm '>Email: </span> 
-      <span>{account?.email}</span>
-    </p>
-    <p>
-    <span className='font-light text-sm'>Password: </span>
-    <span>{account?.password}</span>
-    </p>
+      <form ref={form} className='flex flex-col w-80' onSubmit={(e)=>{
+        e.preventDefault();
+        handleSignIn()
+      }}>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="email">Email:</label>
+          <input  
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="text" 
+          name="email" 
+          id='email' 
+          placeholder='example@domain.com' />
+        </div>
 
-  
-    <Link to='/'>
-      <button 
-      className='bg-black disabled:bg-black/40 text-white w-full rounded-lg py-3 mt-4 mb-2' 
-      disabled={!hasUserAnAccount}
-      onClick={()=> handleSignIn()}>
-        Log in
-      </button>
-    </Link>
-    <div className='text-center'>
-      <a className='font-light text-xs underline underline-offset-4' href='/'>Forgot my password</a>
-    </div>
+        <div className='flex flex-col gap-1'>
+          <label className='font-light text-sm' htmlFor="password">Password:</label>
+          <input  
+          className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+          type="password" 
+          name="password" 
+          id='password' 
+          placeholder='**********' />
+        </div>
+        {showInvalidCredentials && (
+          <div className='text-red-500 text-sm font-light mt-2'>
+            Invalid credentials, please try again.
+          </div>
+        )}
+    
+        <button 
+        className='bg-black disabled:bg-black/40 text-white w-full rounded-lg py-3 mt-4 mb-2' 
+        type='submit'>
+          Log in
+        </button>
+        
+        <div className='text-center'>
+          <a className='font-light text-xs underline underline-offset-4' href='/'>Forgot my password</a>
+        </div>
 
-      <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={hasUserAnAccount}
-      onClick={()=> setRender('createUserInfo')}>
-        Sign up
-      </button>
+        <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={hasUserAnAccount}
+          onClick={()=> setRender('createUserInfo')}>
+            Sign up
+        </button>
 
-  </div>
+  </form>
     )
   }
   
   const renderCreateUserInfo = ()=>{
     return(
-      <form ref={form} className='flex flex-col gap-4 w-80'>
+      <form ref={form} className='flex flex-col gap-4 w-80' onSubmit={(e)=> {
+        e.preventDefault();
+        saveNewAccount();
+      }
+      }>
         <div className='flex flex-col gap-1'>
           <label className='font-light text-sm' htmlFor="name">Your name:</label>
           <input  
@@ -137,13 +174,13 @@ function SignIn() {
           id='password' 
           placeholder='********' />
         </div>
-        <Link to='/'>
-          <button 
+        
+        <button 
           className='bg-black text-white rounded-lg w-full py-3'
-          onClick={()=> saveNewAccount()}>
+          type='submit'>
             Create
-          </button>
-        </Link>
+        </button>
+        
       </form>
     )
     

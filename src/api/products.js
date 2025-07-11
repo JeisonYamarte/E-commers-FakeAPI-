@@ -1,4 +1,4 @@
-import api from './axiosConfig';
+import {api} from './axiosConfig';
 
 
 export const getProducts = async (category) =>{
