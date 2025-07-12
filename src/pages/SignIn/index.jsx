@@ -58,7 +58,7 @@ function SignIn() {
       setShowInvalidCredentials(true);
     } else {
       saveAccount(response);
-      setAuthToken(response);
+      setAuthToken(response.replace(/"/g, ''));
       navigate('/');
     }
   }

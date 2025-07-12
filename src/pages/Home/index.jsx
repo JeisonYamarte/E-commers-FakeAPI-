@@ -16,14 +16,16 @@ function Home() {
   const params = useParams();
   const indexIdPath = params.id
   
-
-  if (!indexIdPath){
-    setCategory('all');
+  React.useEffect(()=>{
     
-  } else{
-    setCategory(indexIdPath);
-  }
+    if (!indexIdPath){
+      setCategory('all');
+      
+    } else{
+      setCategory(indexIdPath);
+    }
 
+  },[setCategory, indexIdPath])
 
 
   const renderView = ()=>{

@@ -29,6 +29,7 @@ export const logInAccount = async (data) =>{
 
 export const getAccountData = async () => {
     try {
+        
         const response = await api.get('/profile/my-data');
         
         return response.data;
@@ -44,8 +45,8 @@ export const updateAccountData = async (data, id) => {
     try {
         console.log("Updating account data:", data, id);
         
-        await api.put(`/customers/${id}`, data);
-        return true;
+        const response = await api.put(`/customers/${id}`, data);
+        return response;
     } catch (error) {
         console.error("Error updating account data:", error);
         throw error;

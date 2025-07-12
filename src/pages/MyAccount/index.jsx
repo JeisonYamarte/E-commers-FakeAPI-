@@ -16,7 +16,7 @@ function MyAccount() {
   
   React.useEffect(() => {
       getAccount();
-  }, []);
+  }, [render]);
   
   const form = React.useRef(null)
 
@@ -34,43 +34,57 @@ function MyAccount() {
     
     console.log(response);
     
-    //setRender('user-info')
+    setRender('user-info')
   }
 
 
   const renderEditView = ()=>{
-    
     return(
       <div className='flex flex-col w-80'>
-    <p>
-      <span className='font-light text-sm '>Name: </span> 
-      <span>{Object.keys(account).length >= 0 ? accountData?.customer?.name : 'No account'}</span>
-    </p>
-    <p>
-    <span className='font-light text-sm'>Email: </span>
-    <span>{accountData?.email}</span>
-    </p>
+        <p>
+          <span className='font-light text-sm '>Name: </span> 
+          <span>{accountData?.customer?.name}</span>
+        </p>
+        <p>
+          <span className='font-light text-sm '>Last Name: </span> 
+          <span>{accountData?.customer?.lastName}</span>
+        </p>
+        <p>
+          <span className='font-light text-sm '>Phone: </span> 
+          <span>{accountData?.customer?.phone}</span>
+        </p>
+        <p>
+          <span className='font-light text-sm '>Address: </span> 
+          <span>{accountData?.customer?.address}</span>
+        </p>
+        <p>
+        <span className='font-light text-sm'>Email: </span>
+        <span>{accountData?.email}</span>
+        </p>
 
-    <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={!hasUserAnAccount}
-    onClick={()=> setRender('EditUserInfo')}>
-      Edit 
-    </button>
+        <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={!hasUserAnAccount}
+        onClick={()=> setRender('EditUserInfo')}>
+          Edit 
+        </button>
 
-  </div>
+      </div>
     )
   }
   
   const renderSaveEditInfo = ()=>{
     
     return(
-      <form ref={form} onSubmit={()=>{saveNewAccount()}} className='flex flex-col gap-4 w-80'>
+      <form ref={form} onSubmit={(e)=>{
+        e.preventDefault();
+        saveNewAccount()
+        }} className='flex flex-col gap-4 w-80'>
         <div className='flex flex-col gap-1'>
           <label className='font-light text-sm' htmlFor="name">name:</label>
           <input  
           className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
           type="text" 
           name="name" 
-          defaultChecked={accountData?.customer?.name || ''}
+          defaultValue={accountData?.customer?.name || ''}
           id='name' 
           placeholder={accountData?.customer?.name || ''} />
         </div>
@@ -81,7 +95,7 @@ function MyAccount() {
           type="text" 
           name="lastName" 
           id='lastName' 
-          defaultChecked={accountData?.customer?.lastName || ''}
+          defaultValue={accountData?.customer?.lastName || ''}
           placeholder={accountData?.customer?.lastName || ''} />
         </div>
         <div className='flex flex-col gap-1'>
@@ -91,7 +105,7 @@ function MyAccount() {
           type="text" 
           name="phone" 
           id='phone' 
-          defaultChecked={accountData?.customer?.phone || ''}
+          defaultValue={accountData?.customer?.phone || ''}
           placeholder={accountData?.customer?.phone || ''} />
         </div>
         <div className='flex flex-col gap-1'>
@@ -101,7 +115,7 @@ function MyAccount() {
           type="text" 
           name="address" 
           id='address' 
-          defaultChecked={accountData?.customer?.address || ''}
+          defaultValue={accountData?.customer?.address || ''}
           placeholder={accountData?.customer?.address || ''} />
         </div>
         

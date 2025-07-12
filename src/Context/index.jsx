@@ -19,6 +19,9 @@ export const ShoppingCartProvider = ({children}) =>{
     const [isLoading, setIsLoading] = React.useState(false);
     const [category, setCategory] = React.useState('all');
 
+    const [debounceSearchValue, setDebounceSearchValue] = React.useState('');
+    
+
     const [accountData, setAccountData] = React.useState({});
     
 
@@ -33,7 +36,6 @@ export const ShoppingCartProvider = ({children}) =>{
     } = useLocalStorage('SIGN-OUT', true);
 
 
-    const API = import.meta.env.VITE_BACKEND_URL + '/api/v1';
     
     const getAccount = async () => {
         try {
@@ -73,15 +75,20 @@ React.useEffect(() => {
 
     const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
+    React.useEffect(()=>{
+        const handler = setTimeout(()=>{
+            setDebounceSearchValue(searchByTitle)
+        }, 500)
 
+        return () => clearTimeout(handler);
+    }, [searchByTitle]);
     
 
     React.useEffect(()=>{
             setIsLoading(true);
             if (searchByTitle) {
-                getSearchProducts(searchByTitle)
+                getSearchProducts(debounceSearchValue)
                 .then((data)=>{
-                    console.log("Search products data:", data);
                     setFilteredItems(data);
                 })
                 .catch((error) => {
@@ -102,7 +109,7 @@ React.useEffect(() => {
                     setIsLoading(false);
                 })
             }
-    },[searchByTitle])
+    },[debounceSearchValue])
 
     return(
         <ShoppingContext.Provider value={{
@@ -133,7 +140,7 @@ React.useEffect(() => {
             isLoading,
             accountData,
             setAccountData,
-            getAccount
+            getAccount,
         }}>
             {children}
         </ShoppingContext.Provider>
