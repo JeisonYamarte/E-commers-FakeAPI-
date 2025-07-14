@@ -2,6 +2,8 @@ import React from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { getProducts, getSearchProducts } from '../api/products';
 import { getAccountData } from '../api/accounts';
+import { getMyOrders, getOrder } from '../api/orders';
+
 
 export const ShoppingContext = React.createContext();
 
@@ -18,6 +20,7 @@ export const ShoppingCartProvider = ({children}) =>{
     const [searchByTitle, setSearchByTitle] = React.useState('');
     const [isLoading, setIsLoading] = React.useState(false);
     const [category, setCategory] = React.useState('all');
+    const [yourOrders, setYourOrders] = React.useState([]);
 
     const [debounceSearchValue, setDebounceSearchValue] = React.useState('');
     
@@ -43,6 +46,21 @@ export const ShoppingCartProvider = ({children}) =>{
             setAccountData(data);
         } catch (error) {
             console.error("Error fetching account data:", error);
+        }
+    }
+
+    const getOrders = async ()=>{
+        const data = await getMyOrders();
+        setYourOrders(data);
+    }
+
+    const getOrderToShow = async (id) =>{
+        try {
+            const response = await getOrder(id);
+            setOrder(response.data);
+        } catch (error) {
+            console.error("Error fetching order to show:", error);
+            throw error;
         }
     }
 
@@ -141,6 +159,9 @@ React.useEffect(() => {
             accountData,
             setAccountData,
             getAccount,
+            getOrders,
+            yourOrders,
+            getOrderToShow
         }}>
             {children}
         </ShoppingContext.Provider>

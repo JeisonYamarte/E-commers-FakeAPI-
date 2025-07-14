@@ -5,7 +5,14 @@ import { ShoppingContext } from '../../Context'
 import { Link } from 'react-router-dom'
 
 function MyOrders() {
-  const { order} = React.useContext(ShoppingContext);
+  const { 
+    yourOrders,
+    getOrders
+  } = React.useContext(ShoppingContext);
+
+  React.useEffect(()=>{
+    getOrders()
+  },[]);
 
   return (
     <Layout>
@@ -14,13 +21,13 @@ function MyOrders() {
       </div>
       
       {
-        order.map((ord)=>(
+        yourOrders?.map((ord)=>(
           <Link key={ord.id} to={`/my-orders/${ord.id}`}>
           <OrdersCard  
-            timeDate={ord.date}
-            totalPrice={ord.totalPrice} 
-            totalProducts={ord.totalProducts} />
-            </Link>
+            timeDate={new Date(ord.createdAt).toLocaleDateString()}
+            totalPrice={ord.total.toFixed(2)} 
+            totalProducts={ord.items.length} />
+          </Link>
         ))
       }
     </Layout>

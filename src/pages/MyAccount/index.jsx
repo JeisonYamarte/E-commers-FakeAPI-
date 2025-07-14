@@ -32,7 +32,6 @@ function MyAccount() {
     }
     const response = await updateAccountData(data, accountData?.customer?.id)
     
-    console.log(response);
     
     setRender('user-info')
   }

@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
 import { totalPrice,  dateTime } from '../../Utils';
+import { cheackoutOrder } from '../../api/orders';
 import uniqid from 'uniqid'
 
 
@@ -26,16 +27,10 @@ function CheckoutSideMenu() {
         setCount(count - quant);
     }
 
-    const handleCheackout = ()=>{
-        const orderToAdd ={
-            id: uniqid(),
-            date: dateTime(),
-            products: cartProducts,
-            totalProducts: count,
-            totalPrice: totalPrice(cartProducts),
-        }
+    const handleCheackout = async ()=>{
         
-        setOrder([...order, orderToAdd]);
+        const response = await cheackoutOrder(cartProducts);
+        setOrder(response);
         setCartProducts([]);
         setCount(0);
         closeCheckoutSideMenu();

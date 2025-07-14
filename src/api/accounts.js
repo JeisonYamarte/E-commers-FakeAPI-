@@ -43,7 +43,6 @@ export const getAccountData = async () => {
 
 export const updateAccountData = async (data, id) => {
     try {
-        console.log("Updating account data:", data, id);
         
         const response = await api.put(`/customers/${id}`, data);
         return response;
