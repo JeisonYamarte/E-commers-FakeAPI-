@@ -9,6 +9,7 @@ import { NotFound } from '../NotFound'
 import { Navbar } from '../../Components/Navbar'
 import { ProductDetail } from '../../Components/ProductDetail';
 import { CheckoutSideMenu } from '../../Components/CheckoutSideMenu';
+import { Recovery } from '../Recovery'
 
 import './App.css'
 import React from 'react'
@@ -28,6 +29,7 @@ const AppRoutes = () =>{
     { path: '/my-orders/:id', element: <MyOrder />},
     { path: '/my-order', element: <MyOrder />},
     { path: '/sign-in', element: <SignIn/>},
+    { path: '/recovery', element: <Recovery />},
     { path: '/*', element: <NotFound />}
   ])
 

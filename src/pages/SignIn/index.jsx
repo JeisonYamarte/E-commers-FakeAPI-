@@ -8,7 +8,6 @@ import { setAuthToken } from '../../api/axiosConfig';
 
 function SignIn() {
   const {
-    account,
     saveAccount,
     saveSignOut,
   } = React.useContext(ShoppingContext);
@@ -19,7 +18,6 @@ function SignIn() {
   const form = React.useRef(null)
   const navigate = useNavigate();
 
-  const hasUserAnAccount = Object.keys(account).length > 0 ? true : false;
 
   const saveNewAccount = async ()=>{
     
@@ -101,10 +99,10 @@ function SignIn() {
         </button>
         
         <div className='text-center'>
-          <a className='font-light text-xs underline underline-offset-4' href='/'>Forgot my password</a>
+          <a className='font-light text-xs underline underline-offset-4' href='/recovery'>Forgot my password</a>
         </div>
 
-        <button className='border border-black disabled:border-black/40 disabled:text-black/40 rounded-lg mt-6 py-3' disabled={hasUserAnAccount}
+        <button className='border border-black  rounded-lg mt-6 py-3' 
           onClick={()=> setRender('createUserInfo')}>
             Sign up
         </button>

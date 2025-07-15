@@ -51,3 +51,13 @@ export const updateAccountData = async (data, id) => {
         throw error;
     }
 }
+
+export const sendRecoveryEmail = async (email) => {
+    try{
+        const response = await api.post('/auth/recovery', {email});
+        return response.date;
+    } catch (error){
+        console.error("Error sending recovery email:", error);
+        throw error;
+    }
+}
