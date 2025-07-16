@@ -54,7 +54,7 @@ function Home() {
 
   return (
     <Layout>
-       <div className='relative flex items-center justify-center w-80 mb-4 '>
+      <div className='relative flex items-center justify-center w-80 mb-4 '>
         <h1 className='font-medium text-xl'>Excluive Products</h1>
       </div>
 

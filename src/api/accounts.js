@@ -3,7 +3,7 @@ import {api} from './axiosConfig';
 export const createAccount = async (userData) => {
     try {
         await api.post('/customers', userData);
-        const response = await this.logInAccount({
+        const response = await logInAccount({
             email: userData.user.email,
             password: userData.user.password
         });
@@ -58,6 +58,16 @@ export const sendRecoveryEmail = async (email) => {
         return response.date;
     } catch (error){
         console.error("Error sending recovery email:", error);
+        throw error;
+    }
+}
+
+export const changePassword = async (token, newPassword)=> {
+    try {
+        const response = await api.post('/auth/change-password', {token, newPassword});
+        return response.data;
+    } catch (error){
+        console.error('Error changing password:', error);
         throw error;
     }
 }

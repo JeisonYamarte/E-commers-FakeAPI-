@@ -21,7 +21,7 @@ function MyOrder() {
     if (indexOrderPath !== 'last'){
       getOrderToShow(indexOrderPath);
     }
-  },[])
+  },[indexOrderPath])
 
   
   

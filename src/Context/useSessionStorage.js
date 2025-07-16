@@ -1,6 +1,6 @@
 import React from "react";
 
-const useLocalStorage = (itemName, initialValue) => {
+const useSessionStorage = (itemName, initialValue) => {
   const [item, setItem] = React.useState(initialValue);
   
   
@@ -8,16 +8,16 @@ const useLocalStorage = (itemName, initialValue) => {
   React.useEffect(()=>{
     
         
-        const localStorageItem = localStorage.getItem(itemName);
+        const sessionStorageItem = sessionStorage.getItem(itemName);
         
         let parsedItem;
     
         
-        if(!localStorageItem){
-          localStorage.setItem(itemName,JSON.stringify(initialValue));
+        if(!sessionStorageItem){
+          sessionStorage.setItem(itemName,JSON.stringify(initialValue));
           parsedItem = initialValue;
         } else{
-          parsedItem = JSON.parse(localStorageItem);
+          parsedItem = JSON.parse(sessionStorageItem);
           setItem(parsedItem);
     
         }
@@ -28,7 +28,7 @@ const useLocalStorage = (itemName, initialValue) => {
   },[])
 
   const saveItem = (newItem) => {
-  localStorage.setItem(itemName, JSON.stringify(newItem));
+  sessionStorage.setItem(itemName, JSON.stringify(newItem));
     
       setItem(newItem);   
   }
@@ -37,4 +37,4 @@ const useLocalStorage = (itemName, initialValue) => {
   return {item, saveItem};
 }
   
-export { useLocalStorage}
+export { useSessionStorage}

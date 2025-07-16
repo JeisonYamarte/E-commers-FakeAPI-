@@ -11,13 +11,12 @@ function Navbar (){
     const {
         count,
         account,
-        getAccount,
         openCheckoutSideMenu,
         setSearchByTitle,
         searchByTitle,
         saveSignOut,
         signOut,
-        accountData
+        accountData,
     } = React.useContext(ShoppingContext);
 
     const [view, setView] = React.useState(null)
@@ -26,9 +25,9 @@ function Navbar (){
 
     const activeStyle = 'underline underline-offset-4';
 
-    React.useEffect(()=>{
+    /*React.useEffect(()=>{
         getAccount();
-    },[account])
+    },[account])*/
     
 
     React.useLayoutEffect(()=>{
@@ -62,7 +61,10 @@ function Navbar (){
                             My Orders
                         </NavLink>
                     </li>
-                    <li onClick={()=> setActiveModalSession(false)}>
+                    <li onClick={()=> {
+                        setActiveModalSession(false)
+                        }
+                    }>
                         <NavLink
                         to='/my-account'
                         className={({isActive})=>

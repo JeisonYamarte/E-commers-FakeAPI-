@@ -1,6 +1,7 @@
 import React from 'react'
 import { Layout } from '../../Components/Layout'
 import { ShoppingContext } from '../../Context'
+import { getAccountData } from '../../api/accounts';
 import { updateAccountData } from '../../api/accounts';
 
 
@@ -9,14 +10,22 @@ function MyAccount() {
   const {
     account,
     accountData,
-    getAccount
+    setAccountData,
   } = React.useContext(ShoppingContext);
 
   const [render, setRender] = React.useState('user-info')
   
   React.useEffect(() => {
-      getAccount();
-  }, [render]);
+    const fetchAccountData = async () =>{
+      try {
+        const data = await getAccountData();
+        setAccountData(data);
+      } catch (error) {
+        console.error("Error fetching account data:", error);
+      }
+    }
+    fetchAccountData();
+  },[]);
   
   const form = React.useRef(null)
 

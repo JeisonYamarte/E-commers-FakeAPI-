@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocalStorage } from './useLocalStorage';
+import { useSessionStorage } from './useSessionStorage';
 import { getProducts, getSearchProducts } from '../api/products';
 import { getAccountData } from '../api/accounts';
 import { getMyOrders, getOrder } from '../api/orders';
@@ -31,23 +31,25 @@ export const ShoppingCartProvider = ({children}) =>{
     const {
         item: account,
         saveItem: saveAccount,
-    } = useLocalStorage('TOKEN', {});
+    } = useSessionStorage('TOKEN', {});
 
     const {
         item: signOut,
         saveItem: saveSignOut,
-    } = useLocalStorage('SIGN-OUT', true);
+    } = useSessionStorage('SIGN-OUT', true);
 
 
     
-    const getAccount = async () => {
-        try {
-            const data = await getAccountData();
-            setAccountData(data);
-        } catch (error) {
-            console.error("Error fetching account data:", error);
+    /*const getAccount = async () => {
+        if (!signOut ){
+            try {
+                const data = await getAccountData();
+                setAccountData(data);
+            } catch (error) {
+                console.error("Error fetching account data:", error);
+            }
         }
-    }
+    }*/
 
     const getOrders = async ()=>{
         const data = await getMyOrders();
@@ -158,7 +160,6 @@ React.useEffect(() => {
             isLoading,
             accountData,
             setAccountData,
-            getAccount,
             getOrders,
             yourOrders,
             getOrderToShow
