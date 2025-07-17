@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
-import { totalPrice,  dateTime } from '../../Utils';
+import { totalPrice} from '../../Utils';
 import { cheackoutOrder } from '../../api/orders';
-import uniqid from 'uniqid'
+
 
 
 
@@ -18,7 +18,6 @@ function CheckoutSideMenu() {
         count, 
         setCount,
         setOrder,
-        order,
     } = React.useContext(ShoppingContext); 
 
     const handleDelete = (id, quant)=>{
@@ -70,7 +69,7 @@ function CheckoutSideMenu() {
             </Link>
         </div>
     </aside>
-  )
+    )
 }
 
 export {CheckoutSideMenu}

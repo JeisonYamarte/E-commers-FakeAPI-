@@ -15,7 +15,6 @@ function Recovery(){
     
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token') || '';
-    console.log("Token from params:", token);
     
 
     const handleRecovery = async () =>{
@@ -24,10 +23,8 @@ function Recovery(){
         
         const response = await sendRecoveryEmail(email); 
         
-        console.log(response);
-        
         form.current.reset();
-        alert("Recovery email sent successfully!");
+        alert("Recovery email sent successfully!", response);
     }
 
     const handleChangePassword = async () =>{

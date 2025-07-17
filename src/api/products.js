@@ -27,7 +27,12 @@ export const getProducts = async (category) =>{
             }
         }
         const response = await api.get(url);
-        return response.data.products || response.data;
+        if (category === 'all') {
+            return response.data;
+        } else {
+            return response.data.products;
+        }
+        
     } catch (error) {
         console.error("Error fetching products:", error);
         throw error;

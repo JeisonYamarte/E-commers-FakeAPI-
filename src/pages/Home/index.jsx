@@ -20,14 +20,13 @@ function Home() {
     
     if (!indexIdPath){
       setCategory('all');
-      
     } else{
       setCategory(indexIdPath);
     }
 
   },[setCategory, indexIdPath])
 
-
+  
   const renderView = ()=>{
     if (isLoading === true) {
       return (<>

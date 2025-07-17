@@ -10,6 +10,7 @@ function SignIn() {
   const {
     saveAccount,
     saveSignOut,
+    setEmail
   } = React.useContext(ShoppingContext);
 
   const [render, setRender] = React.useState('user-info')
@@ -39,6 +40,7 @@ function SignIn() {
     saveAccount(response);
     saveSignOut(false);
     setAuthToken(response);
+    setEmail(data.user.email);
     navigate('/');
   }
 
@@ -57,6 +59,7 @@ function SignIn() {
     } else {
       saveAccount(response);
       setAuthToken(response.replace(/"/g, ''));
+      setEmail(data.email);
       navigate('/');
     }
   }

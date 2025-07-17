@@ -22,6 +22,11 @@ export const ShoppingCartProvider = ({children}) =>{
     const [category, setCategory] = React.useState('all');
     const [yourOrders, setYourOrders] = React.useState([]);
 
+    const [email, setEmail] = React.useState('');
+
+    const [activeModalSession, setActiveModalSession] = React.useState(false)
+    const [activeModalCategory, setActiveModalCategory] = React.useState(false)
+
     const [debounceSearchValue, setDebounceSearchValue] = React.useState('');
     
 
@@ -39,17 +44,6 @@ export const ShoppingCartProvider = ({children}) =>{
     } = useSessionStorage('SIGN-OUT', true);
 
 
-    
-    /*const getAccount = async () => {
-        if (!signOut ){
-            try {
-                const data = await getAccountData();
-                setAccountData(data);
-            } catch (error) {
-                console.error("Error fetching account data:", error);
-            }
-        }
-    }*/
 
     const getOrders = async ()=>{
         const data = await getMyOrders();
@@ -69,9 +63,11 @@ export const ShoppingCartProvider = ({children}) =>{
 
 React.useEffect(() => {
     setIsLoading(true);
+    
     getProducts(category)
         .then((data)=>{
             setItemsToShow(data);
+            setFilteredItems(data);
         })
         .catch((error) => {
             console.error("Error fetching products:", error);
@@ -162,7 +158,13 @@ React.useEffect(() => {
             setAccountData,
             getOrders,
             yourOrders,
-            getOrderToShow
+            getOrderToShow,
+            activeModalSession,
+            setActiveModalSession,
+            activeModalCategory,
+            setActiveModalCategory,
+            setEmail,
+            email
         }}>
             {children}
         </ShoppingContext.Provider>
