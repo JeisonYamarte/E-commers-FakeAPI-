@@ -3,6 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingContext } from "../../../Context";
 import { logInAccount } from "../../../api/accounts";
 import { setAuthToken } from "../../../api/axiosConfig";
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 function LogIn ({setRender}){
     const {
@@ -36,51 +48,53 @@ function LogIn ({setRender}){
     }
 
     return(
-        <form ref={form} className='flex flex-col w-80' onSubmit={(e)=>{
-        e.preventDefault();
-        handleSignIn()
-        }}>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="email">Email:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="text" 
-                name="email" 
-                id='email' 
-                placeholder='example@domain.com' />
-            </div>
-
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="password">Password:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="password" 
-                name="password" 
-                id='password' 
-                placeholder='**********' />
-            </div>
-            {showInvalidCredentials && (
-            <div className='text-red-500 text-sm font-light mt-2'>
-                Invalid credentials, please try again.
-            </div>
-            )}
-        
-            <button 
-            className='bg-black text-white w-full rounded-lg py-3 mt-4 mb-2' 
-            type='submit'>
-                Log in
-            </button>
-            
-            <div className='text-center'>
-                <a className='font-light text-xs underline underline-offset-4' href='/recovery'>Forgot my password</a>
-            </div>
-
-            <button className='border border-black  rounded-lg mt-6 py-3' 
-            onClick={()=> setRender('createUserInfo')}>
-                Sign up
-            </button>
-
-        </form>
+        <Card className="bg-menta w-full max-w-sm text-hueso text-base">
+            <CardHeader>
+                <CardTitle>Login to your account</CardTitle>
+                <CardDescription>
+                Enter your email below to login to your account
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form id='logInForm' ref={form} onSubmit={(e)=>{
+                    e.preventDefault();
+                    handleSignIn();
+                }}>
+                <div className="flex flex-col gap-6 ">
+                    <div className="grid gap-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="m@example.com"
+                        required
+                    />
+                    </div>
+                    <div className="grid gap-2">
+                    <div className="flex items-center">
+                        <Label htmlFor="password">Password</Label>
+                        <a
+                        href="/recovery"
+                        className="ml-auto inline-block text-sm underline-offset-4 hover:underline "
+                        >
+                        Forgot your password?
+                        </a>
+                    </div>
+                    <Input id="password" type="password" name="password" required />
+                    </div>
+                </div>
+                </form>
+            </CardContent>
+            <CardFooter className="flex-col gap-2">
+                <Button type="submit" form='logInForm' className="w-full hover:bg-salvia">
+                Login
+                </Button>
+                <Button variant="outline" className="w-full hover:bg-salvia" onClick={()=> setRender('user-create')}>
+                    Sign Up
+                </Button>
+            </CardFooter>
+        </Card>
     )
 }
 
