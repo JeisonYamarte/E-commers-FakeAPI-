@@ -3,6 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingContext } from "../../../Context";
 import { setAuthToken } from "../../../api/axiosConfig";
 import { createAccount } from "../../../api/accounts";
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 
 function SaveNewAccount (){
@@ -40,72 +51,93 @@ function SaveNewAccount (){
     }
 
     return (
-        <form ref={form} className='flex flex-col gap-4 w-80' onSubmit={(e)=> {
-        e.preventDefault();
-        saveNewAccount();
-        }
-        }>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="name">Your name:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="text" 
-                name="name" 
-                id='name' 
-                placeholder='Alejandro' />
-            </div>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="lastName">Your last name:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="text" 
-                name="lastName" 
-                id='lastName'  
-                placeholder='Rodriguez' />
-            </div>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="address">Your address:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="text" 
-                name="address" 
-                id='address'  
-                placeholder='carrera 560' />
-            </div>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="phone">Your phone:</label>
-                <input  
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="text" 
-                name="phone" 
-                id='phone'  
-                placeholder='097965175' />
-            </div>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="email">Your email</label>
-                <input 
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="email" 
-                name="email" 
-                id='email'  
-                placeholder='tuCorreo@gmail.com' />
-            </div>
-            <div className='flex flex-col gap-1'>
-                <label className='font-light text-sm' htmlFor="password">Your password</label>
-                <input 
-                className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
-                type="password" 
-                name="password" 
-                id='password' 
-                placeholder='********' />
-            </div>
-            
-            <button 
-                className='bg-black text-white rounded-lg w-full py-3'
-                type='submit'>
-                Create
-            </button>
-        </form>
+        <Card className="bg-menta w-full max-w-sm text-hueso text-base">
+            <CardHeader>
+                <CardTitle>Create Account</CardTitle>
+                <CardDescription>Please enter your details</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form id="createAccountForm" ref={form} onSubmit={(e)=>{
+                    e.preventDefault(),
+                    saveNewAccount()
+                }}>
+                    <div className="flex flex-col gap-6 ">
+                        <div className="grid gap-2">
+                            <Label htmlFor="name">Name:</Label>
+                            <Input
+                                className="focus:bg-salvia"
+                                id="name"
+                                type="text"
+                                name="name"
+                                placeholder="My name"
+                                required
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="lastName">Last Name:</Label>
+                            <Input 
+                                id="lastName" 
+                                type="text" 
+                                name="lastName"
+                                className="focus:bg-salvia"
+                                placeholder="My last name" 
+                                required 
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="Phone">Phone:</Label>
+                            <Input 
+                                id="phone" 
+                                type="text" 
+                                name="phone"
+                                className="focus:bg-salvia"
+                                placeholder="My Phone" 
+                                required 
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="address">Address:</Label>
+                            <Input 
+                                id="address" 
+                                type="text" 
+                                name="address"
+                                className="focus:bg-salvia"
+                                placeholder="My Address" 
+                                required
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="email">Email:</Label>
+                            <Input 
+                                id="email" 
+                                type="email" 
+                                name="email"
+                                className="focus:bg-salvia"
+                                placeholder="m@example.com" 
+                                required 
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <Label htmlFor="lastName">Password:</Label>
+                            <Input 
+                                id="password" 
+                                type="password" 
+                                name="password"
+                                className="focus:bg-salvia" 
+                                required 
+                            />
+                        </div>
+                    </div>
+                </form>
+            </CardContent>
+            <CardFooter className="flex-col gap-2">
+                <Button 
+                    type='submit'
+                    form='createAccountForm'
+                    className="w-full hover:bg-salvia"
+                >Create</Button>
+            </CardFooter>
+        </Card>
     )
 }
 

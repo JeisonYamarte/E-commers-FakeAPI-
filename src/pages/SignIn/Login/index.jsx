@@ -6,7 +6,6 @@ import { setAuthToken } from "../../../api/axiosConfig";
 import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardActions,
     CardContent,
     CardDescription,
     CardFooter,
@@ -64,6 +63,7 @@ function LogIn ({setRender}){
                     <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
+                        className="focus:bg-salvia"
                         id="email"
                         type="email"
                         name="email"
@@ -81,7 +81,12 @@ function LogIn ({setRender}){
                         Forgot your password?
                         </a>
                     </div>
-                    <Input id="password" type="password" name="password" required />
+                    <Input 
+                        className="focus:bg-salvia" 
+                        id="password" 
+                        type="password" 
+                        name="password" 
+                        required />
                     </div>
                 </div>
                 </form>
