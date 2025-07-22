@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
 import { Layout } from '../../Components/Layout'
-import { Card } from '../../Components/Card'
+import { CardItems } from '../../Components/CardItems'
 import { ShoppingContext } from '../../Context'
 import { LoadingCard } from '../../Components/LoadingCard';
 
@@ -40,7 +40,7 @@ function Home() {
       return(<>
         {
           filteredItems?.map((item)=>{
-            return <Card key={item.id} data={item} />
+            return <CardItems key={item.id} data={item} />
           })
         }
       </>)

@@ -1,8 +1,14 @@
 import React from 'react'
 import { PlusIcon } from '@heroicons/react/16/solid'
 import { ShoppingContext } from '../../Context'
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardDescription,
+    CardFooter,
+} from "@/components/ui/card"
 
-function Card({data}) {
+function CardItems({data}) {
   const {
     count,
     setCount,
@@ -35,27 +41,27 @@ function Card({data}) {
   }
 
   return (
-    <div 
-    className='bg-white cursor-pointer lg:w-56 lg:h-60 w-30 h-25 rounded-lg'
+    <Card 
+    className='bg-salvia cursor-pointer lg:w-56 lg:h-60 w-30 h-25 rounded-lg p-2'
     onClick={()=> setProductToShow()}
     >
         <figure className='relative mb-2 w-full h-4/5 ob'>
-            <span className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>{data?.category.name}</span>
-            <img className='w-full h-full object-contain rounded-lg' src={data?.image} alt={data?.name} />
-            <button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-blue-500' 
+            <CardDescription className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>{data?.category.name}</CardDescription>
+            <img className='w-full h-full object-cover rounded-lg' src={data?.image} alt={data?.name} />
+            <Button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-salvia' 
             onClick={(event)=> {
               event.stopPropagation();
               addProductsToCart(data);
               }}>
                 <PlusIcon />
-            </button>
+            </Button>
         </figure>
-        <p className='flex justify-between items-center'>
+        <CardFooter className='flex justify-between items-center'>
             <span className='text-sm font-light'>{data.name}</span>
             <span className='text-lg font-medium'>{`$${data.price}`}</span>
-        </p>
-    </div>
+        </CardFooter>
+    </Card>
   )
 }
 
-export {Card}
+export {CardItems}
