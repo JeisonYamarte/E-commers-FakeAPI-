@@ -10,7 +10,7 @@ function NavbarLeftList() {
         signOut
     } = React.useContext(ShoppingContext)
 
-    const activeStyle = 'underline underline-offset-4';
+    const activeStyle = 'bg-hueso/60 rounded-sm ';
 
     return (
         <>

@@ -27,7 +27,7 @@ function Navbar (){
 
 
     return(
-        <nav className="flex justify-between items-center  w-full py-5 lg:px-8 px-3 text-sm font-light bg-white">
+        <nav className="flex justify-between items-center  w-full py-5 lg:px-8 px-3 text-sm font-light bg-gradient-to-tr from-verdesuave to-hueso rounded-b-3xl shadow-xl">
             <ul className="lg:flex items-center gap-3 hidden">
                 <NavbarLeftList/>
             </ul>
