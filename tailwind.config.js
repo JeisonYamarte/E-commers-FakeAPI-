@@ -32,11 +32,26 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
 	    colors: {
-        menta: '#A8D5BA',
-        salvia: '#BFD8B8',
-        verdeoscuro: '#4C6650',
-        hueso: '#F9FAF4',
-        piedra: '#6B7B73',
+        // 🌿 Tonos verdes suaves
+        menta: "#A8D5BA",
+        salvia: "#BFD8B8",
+        verdesuave: "#88C9BF",
+        verdeoscuro: "#4C6650",
+
+        // 🎨 Neutros y fondo
+        hueso: "#F9FAF4",
+        piedra: "#6B7B73",
+        griscalido: "#D9D9D9",
+
+        // ✨ Colores complementarios
+        duraznoclaro: "#F7C6A3",
+        rosate: "#EAC7C7",
+        doradoclaro: "#E6D3B3",
+        lavanda: "#C8C5D1",
+        celestepalido: "#CFE8F3",
+      },
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
       },
       fontSize: {
         base: '22px', 

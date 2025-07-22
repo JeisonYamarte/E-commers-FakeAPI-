@@ -42,7 +42,7 @@ function App() {
   return (
     <ShoppingCartProvider>
       <BrowserRouter>
-        <div className="min-h-screen bg-gradient-to-br from-menta to-hueso">
+        <div className="min-h-screen bg-gradient-to-br from-verdesuave to-hueso">
           <Navbar />
           <AppRoutes />
         </div>

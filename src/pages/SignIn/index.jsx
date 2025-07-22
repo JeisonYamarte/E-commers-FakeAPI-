@@ -20,7 +20,7 @@ function SignIn() {
 
   return (
     <Layout>
-      <h1  className='text-center font-medium text-xl w-80 mb-6'>welcome</h1>
+      <h1  className='text-center font-medium text-xl w-80 mb-6'>Welcome</h1>
       {renderView()}
     </Layout>
   )
