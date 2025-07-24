@@ -16,7 +16,6 @@ function CardItems({data}) {
     setShowProduct,
     setCartProducts,
     cartProducts,
-    openCheckoutSideMenu,
   } = React.useContext(ShoppingContext);
 
 
@@ -37,7 +36,6 @@ function CardItems({data}) {
     }
     setCartProducts(newCart)
     setCount(count + 1);
-    openCheckoutSideMenu();
   }
 
   return (

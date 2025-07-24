@@ -5,7 +5,16 @@ import { ShoppingContext } from '../../Context'
 import { OrderCart } from '../OrderCart';
 import { totalPrice} from '../../Utils';
 import { cheackoutOrder } from '../../api/orders';
-
+import {
+    Sheet,
+    SheetClose,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+} from "@/components/ui/sheet"
+import { Button} from "@/components/ui/button"
 
 
 
@@ -36,15 +45,13 @@ function CheckoutSideMenu() {
     }
 
   return (
-    <aside className={`${isCheckoutSideMenuOpen ? 'flex' : 'hidden'} flex-col  fixed right-0 border border-black rounded-lg bg-white top-[68px] w-[360px] h-[calc(100vh-70px)] pb-1`}>
-        <div className='flex flex-col justify-between items-center p-4 h-full rounded-lg'>
-            <div className='flex justify-between w-full'>
-                <h2 className='font-medium text-xl'>My Order</h2>
-                <button
-                onClick={() => closeCheckoutSideMenu()}
-                ><XMarkIcon className='w-7 h-7 '/></button>
-            </div>
-            <div className=' grid grid-cols-1 grid-col auto-rows-max gap-2 overflow-y-auto w-full h-[100vh]'>
+    <Sheet open={isCheckoutSideMenuOpen} onOpenChange={closeCheckoutSideMenu} >
+        <SheetContent className='flex flex-col justify-between items-center p-4 h-full rounded-lg bg-menta [&>button]:bg-hueso [&>button]:w-6 [&>button]:h-6 [&>button]:rounded-full [&>button]:p-1'>
+            <SheetHeader className='w-full sm:justify-start'>
+                <SheetTitle className='font-medium text-xl'>My Order</SheetTitle>
+                
+            </SheetHeader>
+            <div className=' grid grid-cols-1 grid-col auto-rows-max gap-2 overflow-y-auto w-full h-[100vh] bg-salvia p-1 rounded-lg'>
                 {
                     cartProducts.map((product)=>(
                         <OrderCart 
@@ -67,8 +74,8 @@ function CheckoutSideMenu() {
             <Link className='w-full' to='/my-orders/last'>
             <button onClick={()=>handleCheackout()} className='w-full bg-black py-3 text-white rounded-lg'>Checkout</button>
             </Link>
-        </div>
-    </aside>
+        </SheetContent>
+    </Sheet>
     )
 }
 

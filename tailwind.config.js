@@ -17,6 +17,7 @@ module.exports = {
       },
     },
     extend: {
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -26,10 +27,32 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "wobble-ver-left": {
+          "0%,to": {
+              transform: "translateY(0) rotate(0)",
+              "transform-origin": "50% 50%"
+          },
+          "15%": {
+              transform: "translateY(-30px) rotate(-6deg)"
+          },
+          "30%": {
+              transform: "translateY(15px) rotate(6deg)"
+          },
+          "45%": {
+              transform: "translateY(-15px) rotate(-3.6deg)"
+          },
+          "60%": {
+              transform: "translateY(9px) rotate(2.4deg)"
+          },
+          "75%": {
+              transform: "translateY(-6px) rotate(-1.2deg)"
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wobble-ver-left": "wobble-ver-left 0.8s ease   both",
       },
 	    colors: {
         // 🌿 Tonos verdes suaves

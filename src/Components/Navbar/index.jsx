@@ -77,15 +77,15 @@ function Navbar (){
                         openCheckoutSideMenu();
                         setActiveModalSession(false);
                     }} className='flex cursor-pointer'>
-                        <ShoppingCartIcon className='w-4 h-4'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
+                        <ShoppingCartIcon className='w-4 h-4 wobble-ver-left'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                     </li>
                 </ul>
             </Modal>}
             
-            <ul className="lg:flex items-center gap-3 hidden">
+            <ul className="lg:flex items-center gap-3 hidden ">
                 <NavbarRightList />
                 <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>
-                    <ShoppingCartIcon className='w-4 h-4'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
+                    <ShoppingCartIcon className='w-4 h-4 transition-transform duration-200 animate-bounce'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                 </li>
             </ul>
         </nav>
