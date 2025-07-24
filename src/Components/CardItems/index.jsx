@@ -45,7 +45,7 @@ function CardItems({data}) {
     className='bg-salvia cursor-pointer lg:w-56 lg:h-60 w-30 h-25 rounded-lg p-2'
     onClick={()=> setProductToShow()}
     >
-        <figure className='relative mb-2 w-full h-4/5 ob'>
+        <figure className='relative mb-2 w-full h-4/5 '>
             <CardDescription className='absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5'>{data?.category.name}</CardDescription>
             <img className='w-full h-full object-cover rounded-lg' src={data?.image} alt={data?.name} />
             <Button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-salvia' 

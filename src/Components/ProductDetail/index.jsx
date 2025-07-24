@@ -1,37 +1,51 @@
 import React from 'react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { ShoppingContext } from '../../Context'
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import { Button} from "@/components/ui/button"
 
 function ProductDetail() {
     const {
         closeProductDetail,
         showProduct,
-        ifProductDetailOpen
+        ifProductDetailOpen,
+        setIfProductDetailOpen
     } = React.useContext(ShoppingContext); 
     
   return (
-    <aside className={`${ ifProductDetailOpen ? 'flex' : 'hidden'} flex-col  fixed right-0 border border-black rounded-lg bg-white top-[68px] w-[360px] h-[calc(100vh-70px)]`}>
-        <div className='flex flex-col justify-between items-center p-6'>
-            <div className='flex justify-between w-full'>
-                <h2 className='font-medium text-xl'>Detail</h2>
-                <button
-                onClick={() => closeProductDetail()}
-                ><XMarkIcon className='w-7 h-7 '/></button>
-            </div>
-            <div className='p-5'>
+    <Sheet open={ifProductDetailOpen} onOpenChange={setIfProductDetailOpen} >
+        <SheetContent  className='flex flex-col items-center p-6 bg-menta h-full [&>button]:hidden '>
+            <SheetHeader className='flex flex-row justify-between w-full justify-items-center'>
+                <SheetTitle className="mt-2">Detail Product</SheetTitle>
+                <SheetClose asChild>
+                    <Button className="flex bg-hueso w-4 h-6 rounded-2xl   " onClick={()=> closeProductDetail() }><XMarkIcon className='items-center'  /></Button>
+                </SheetClose>
+            </SheetHeader>
+            <div className='w-full p-5'>
                 <figure className='w-full h-[300px]'>
-                    <img className='w-full h-full rounded-lg object-contain' 
+                    <img className='w-full h-full rounded-lg object-cover' 
                     src={showProduct.image} 
                     alt={showProduct.name}/>
                 </figure>
-                <p className='flex flex-col'>
-                    <span className='font-medium text-2xl'>${showProduct.price}</span>
-                    <span className='font-medium text-md'>{showProduct.name}</span>
-                    <span className='font-light text-sm'>{showProduct.description}</span>
-                </p>
+                <SheetFooter className='grid grid-cols-1 m-2'>
+                    <div className='flex justify-between w-full'>
+                        <span className='font-medium text-2xl'>${showProduct.price}</span>
+                        <span className='font-medium text-md'>{showProduct.name}</span>
+                    </div>
+                    <span className='font-light text-sm mt-2'>{showProduct.description}</span>
+                </SheetFooter>
             </div>
-        </div>
-    </aside>
+        </SheetContent>
+    </Sheet>
   )
 }
 

@@ -19,17 +19,18 @@ function MyOrders() {
       <div className='relative flex items-center justify-center w-80 mb-4 '>
         <h1 className='font-medium text-xl'>My Orders</h1>
       </div>
-      
-      {
-        yourOrders?.map((ord)=>(
-          <Link key={ord.id} to={`/my-orders/${ord.id}`}>
-          <OrdersCard  
-            timeDate={new Date(ord.createdAt).toLocaleDateString()}
-            totalPrice={ord.total.toFixed(2)} 
-            totalProducts={ord.items.length} />
-          </Link>
-        ))
-      }
+      <div className="grid lg:grid-cols-3 gap-2 grid-cols-1">
+        {
+          yourOrders?.map((ord)=>(
+            <Link key={ord.id} to={`/my-orders/${ord.id}`}>
+            <OrdersCard  
+              timeDate={new Date(ord.createdAt).toLocaleDateString()}
+              totalPrice={ord.total.toFixed(2)} 
+              totalProducts={ord.items.length} />
+            </Link>
+          ))
+        }
+      </div>
     </Layout>
   )
 }

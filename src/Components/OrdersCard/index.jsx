@@ -1,11 +1,11 @@
-import React from 'react'
+
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 function OrdersCard(props) {
     const {timeDate ,totalPrice, totalProducts} = props;
 
   return (
-    <div className='flex justify-between items-center bg-slate-200 p-4 rounded-lg border-black w-80 mb-4'>
+    <div className='flex justify-between items-center bg-hueso shadow-lg p-4 rounded-lg  w-80 mb-4'>
         <div className='flex justify-between w-full'>
           <div className='flex flex-col'>
             <span className='font-light'>{timeDate}</span>
@@ -16,7 +16,6 @@ function OrdersCard(props) {
             <ChevronRightIcon className='h-6 w-6 text-black cursor-pointer' />
           </div>
         </div>
-
     </div>
   )
 }
