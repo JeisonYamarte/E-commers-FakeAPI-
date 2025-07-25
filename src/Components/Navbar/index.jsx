@@ -22,12 +22,23 @@ function Navbar (){
         setActiveModalSession
         
     } = React.useContext(ShoppingContext);
+    const [isAddProduct, setIsAddProduct] = React.useState(false);
+
+    React.useEffect(()=>{
+        setIsAddProduct(true);
+
+        const timer = setTimeout(() => {
+            setIsAddProduct(false)
+        }, 800);
+
+        return ()=> clearTimeout(timer)
+    }, [count])
 
 
 
 
     return(
-        <nav className="flex justify-between items-center  w-full py-5 lg:px-8 px-3 text-sm font-light bg-gradient-to-tr from-verdesuave to-hueso rounded-b-3xl shadow-xl">
+        <nav className="fixed top-0 left-0 z-10 flex justify-between items-center  w-full py-5 lg:px-8 px-3 text-sm font-light bg-gradient-to-tr from-verdesuave to-hueso rounded-b-3xl shadow-xl">
             <ul className="lg:flex items-center gap-3 hidden">
                 <NavbarLeftList/>
             </ul>
@@ -84,8 +95,8 @@ function Navbar (){
             
             <ul className="lg:flex items-center gap-3 hidden ">
                 <NavbarRightList />
-                <li onClick={()=> openCheckoutSideMenu()} className='flex cursor-pointer'>
-                    <ShoppingCartIcon className='w-4 h-4 transition-transform duration-200 animate-bounce'  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
+                <li onClick={()=> openCheckoutSideMenu()}   className={`flex cursor-pointer ${isAddProduct ? "animate-wobble-ver-left duration-400" : ""}`}>
+                    <ShoppingCartIcon className='w-4 h-4 '  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                 </li>
             </ul>
         </nav>

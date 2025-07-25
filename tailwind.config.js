@@ -52,7 +52,7 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "wobble-ver-left": "wobble-ver-left 0.8s ease   both",
+        "wobble-ver-left": "wobble-ver-left 0.8s ease-in   both",
       },
 	    colors: {
         // 🌿 Tonos verdes suaves
