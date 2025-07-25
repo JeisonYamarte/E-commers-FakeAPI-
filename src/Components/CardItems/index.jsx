@@ -54,7 +54,7 @@ function CardItems({data}) {
                 <PlusIcon />
             </Button>
         </figure>
-        <CardFooter className='flex justify-between items-center'>
+        <CardFooter className='flex justify-between items-center w-full px-0'>
             <span className='text-sm font-light'>{data.name}</span>
             <span className='text-lg font-medium'>{`$${data.price}`}</span>
         </CardFooter>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { ShoppingCartIcon} from '@heroicons/react/24/outline'
 import { useParams } from 'react-router-dom';
 import { Layout } from '../../Components/Layout'
 import { CardItems } from '../../Components/CardItems'
@@ -11,6 +12,8 @@ function Home() {
     filteredItems,
     setCategory,
     isLoading,
+    openCheckoutSideMenu,
+    count
   } = React.useContext(ShoppingContext);
 
   const params = useParams();
@@ -29,7 +32,8 @@ function Home() {
   
   const renderView = ()=>{
     if (isLoading === true) {
-      return (<>
+      return (
+      <>
         <LoadingCard />
         <LoadingCard />
         <LoadingCard />
@@ -62,6 +66,11 @@ function Home() {
         renderView()
       }
       </div>
+      <span className="lg:hidden fixed bottom-7 right-8 z-50 w-10 h-10 bg-hueso rounded-full flex justify-center items-center" onClick={()=> {
+          openCheckoutSideMenu();
+      }} >
+          <ShoppingCartIcon className='relative w-6 h-6' /> <span className='absolute flex items-center justify-center w-4 h-4 p-1 rounded-full bg-duraznoclaro top-0 right-0'>{count}</span>
+      </span>
     </Layout>
   )
 }

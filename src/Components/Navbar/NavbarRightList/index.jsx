@@ -11,7 +11,7 @@ function NavbarRightList() {
     } = React.useContext(ShoppingContext);
 
 
-    const activeStyle = 'bg-hueso/60 rounded-lg';
+    const activeStyle = 'bg-rosate/60 rounded-lg w-1 px-1';
     
     
     if(signOut){
@@ -31,7 +31,7 @@ function NavbarRightList() {
     } else{
         return(
             <>
-            <li className="text-black/60">
+            <li className="text-duraznoclaro">
                 {email}
             </li>
             <li onClick={()=> setActiveModalSession(false)}>

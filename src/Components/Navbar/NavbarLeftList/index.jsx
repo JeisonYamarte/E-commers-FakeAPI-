@@ -10,7 +10,7 @@ function NavbarLeftList() {
         signOut
     } = React.useContext(ShoppingContext)
 
-    const activeStyle = 'bg-hueso/60 rounded-sm ';
+    const activeStyle = 'bg-rosate/60 rounded-lg w-1 px-1';
 
     return (
         <>
