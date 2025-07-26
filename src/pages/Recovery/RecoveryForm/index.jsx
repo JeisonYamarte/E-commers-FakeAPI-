@@ -17,12 +17,12 @@ function RecoveryForm (){
 
 
     return(
-        <form ref={form} className="flex flex-col items-center gap-4 w-80" onSubmit={(e)=>{
+        <form ref={form} className="flex flex-col items-center gap-4 w-80 text-hueso" onSubmit={(e)=>{
                 e.preventDefault();
                 handleRecovery();
             }}>
                 <h2 className="text-center font-medium text-xl w-80 mb-6">Recovery Password</h2>
-                <p className="text-sm text-black/60 mb-6 text-center">Enter your email to recover your password</p>
+                <p className="text-sm mb-6 text-center">Enter your email to recover your password</p>
                 <div className='flex flex-col gap-1'>
                     <label className='font-light text-sm' htmlFor="email">Your email</label>
                     <input 

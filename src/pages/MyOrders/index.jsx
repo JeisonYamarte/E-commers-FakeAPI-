@@ -16,7 +16,7 @@ function MyOrders() {
 
   return (
     <Layout>
-      <div className='relative flex items-center justify-center w-80 mb-4 '>
+      <div className='relative flex items-center justify-center mb-4 w-60 bg-duraznoclaro rounded-lg text-hueso'>
         <h1 className='font-medium text-xl'>My Orders</h1>
       </div>
       <div className="grid lg:grid-cols-3 gap-2 grid-cols-1">

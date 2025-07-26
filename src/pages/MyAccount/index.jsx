@@ -25,7 +25,7 @@ function MyAccount() {
 
   return (
     <Layout>
-      <h1  className='text-center font-medium text-xl w-80 mb-6'>My account</h1>
+      <h1  className='text-center font-medium text-xl mb-6  w-60 bg-duraznoclaro rounded-lg text-hueso'>My account</h1>
       <MyAccountInfo />
     </Layout>
   )

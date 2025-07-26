@@ -27,7 +27,7 @@ function MyOrder() {
   
   return (
     <Layout>
-      <div className='relative flex items-center justify-center w-80 mb-4 '>
+      <div className='relative flex items-center justify-center  mb-4 w-80 bg-duraznoclaro rounded-lg text-hueso'>
         <Link to='/my-orders' className='absolute left-0  '>
           <ChevronLeftIcon className='h-6 w-6 text-black cursor-pointer' />
         </Link>

@@ -16,6 +16,15 @@ function Home() {
     count
   } = React.useContext(ShoppingContext);
 
+  const [animationOn, SetAnimationOn] = React.useState(false)
+
+  React.useEffect(()=>{
+    SetAnimationOn(true);
+    const timer = setTimeout(()=> SetAnimationOn(false), 800)
+
+    return (()=> clearTimeout(timer))
+  }, [count])
+
   const params = useParams();
   const indexIdPath = params.id
   
@@ -57,8 +66,8 @@ function Home() {
 
   return (
     <Layout>
-      <div className='relative flex items-center justify-center w-80 mb-4 '>
-        <h1 className='font-medium text-xl'>Excluive Products</h1>
+      <div className=' text-center w-60 mb-4 bg-duraznoclaro rounded-lg'>
+        <h1 className='font-medium text-xl text-hueso'>Excluive Products</h1>
       </div>
 
       <div className='grid gap-4 lg:p-0 lg:grid-cols-4 p-5 w-full max-w-screen-lg md:grid-cols-2 grid-cols-2 auto-rows-[250px]'>
@@ -66,7 +75,7 @@ function Home() {
         renderView()
       }
       </div>
-      <span className="lg:hidden fixed bottom-7 right-8 z-50 w-10 h-10 bg-hueso rounded-full flex justify-center items-center" onClick={()=> {
+      <span className={`lg:hidden fixed bottom-7 right-8 z-50 w-10 h-10 bg-hueso rounded-full flex justify-center items-center ${animationOn ? 'animate-wobble-ver-left duration-300' : ''}`} onClick={()=> {
           openCheckoutSideMenu();
       }} >
           <ShoppingCartIcon className='relative w-6 h-6' /> <span className='absolute flex items-center justify-center w-4 h-4 p-1 rounded-full bg-duraznoclaro top-0 right-0'>{count}</span>

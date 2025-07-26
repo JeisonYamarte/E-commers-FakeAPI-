@@ -13,14 +13,14 @@ function SignIn() {
     if(render === 'user-info'){
       return <LogIn setRender={setRender} />
     } else{
-      return <SaveNewAccount/>
+      return <SaveNewAccount setRender={setRender}/>
     } 
   }
 
 
   return (
     <Layout>
-      <h1  className='text-center font-medium text-xl w-80 mb-6'>Welcome</h1>
+      <h1  className='text-center font-medium text-xl mb-6 w-60 bg-duraznoclaro rounded-lg text-hueso'>Welcome</h1>
       {renderView()}
     </Layout>
   )

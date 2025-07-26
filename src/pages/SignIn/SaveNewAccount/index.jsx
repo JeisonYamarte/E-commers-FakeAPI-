@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 
-function SaveNewAccount (){
+function SaveNewAccount ({setRender}){
     const {
         saveAccount,
         saveSignOut,
@@ -136,6 +136,11 @@ function SaveNewAccount (){
                     form='createAccountForm'
                     className="w-full hover:bg-salvia"
                 >Create</Button>
+                <Button 
+                    vartiant="ghost"
+                    className="w-full bg-griscalido"
+                    onClick={()=> setRender('user-info')}
+                > Cancel </Button>
             </CardFooter>
         </Card>
     )
