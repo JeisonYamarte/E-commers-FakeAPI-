@@ -89,6 +89,7 @@ function LogIn ({setRender}){
                         required />
                     </div>
                 </div>
+                {showInvalidCredentials && <p className="text-sm text-end text-red-600">Email or password is incorrect</p>}
                 </form>
             </CardContent>
             <CardFooter className="flex-col gap-2">

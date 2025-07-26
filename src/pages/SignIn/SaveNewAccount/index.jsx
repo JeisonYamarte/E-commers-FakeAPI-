@@ -39,6 +39,9 @@ function SaveNewAccount ({setRender}){
                 password: formData.get('password') 
             }
         }
+
+        console.log(data);
+        
         
         const response = await createAccount(data)
         
@@ -128,6 +131,7 @@ function SaveNewAccount ({setRender}){
                             />
                         </div>
                     </div>
+                    <p className="text-sm text-end">*minimun 8 characters*</p>
                 </form>
             </CardContent>
             <CardFooter className="flex-col gap-2">

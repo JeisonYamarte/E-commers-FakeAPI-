@@ -7,6 +7,8 @@ import {
     CardDescription,
     CardFooter,
 } from "@/components/ui/card"
+import { useImageLoading } from '../../Context/useLoadingImage'
+import { AlertCircle, FileImage, Loader2 } from 'lucide-react';
 
 function CardItems({data}) {
   const {
@@ -18,6 +20,8 @@ function CardItems({data}) {
     cartProducts,
   } = React.useContext(ShoppingContext);
 
+
+  const {loading, error} = useImageLoading(data?.image)
 
   const setProductToShow = ()=>{
     openProductDetail();
@@ -45,7 +49,9 @@ function CardItems({data}) {
     >
         <figure className='relative mb-2 w-full h-4/5 '>
             <CardDescription className='absolute bottom-0 left-0 bg-white/20 rounded-lg text-hueso text-xs m-2 px-3 py-0.5'>{data?.category.name}</CardDescription>
-            <img className='w-full h-full object-cover rounded-lg' src={data?.image} alt={data?.name} />
+            {loading && (<Loader2 />)}
+            {error && (<FileImage />)}
+            {!loading && !error && (<img className='w-full h-full object-cover rounded-lg' src={data?.image} alt={data?.name} />)}
             <Button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-salvia' 
             onClick={(event)=> {
               event.stopPropagation();
