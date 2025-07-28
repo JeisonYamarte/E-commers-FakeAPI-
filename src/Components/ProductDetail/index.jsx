@@ -1,5 +1,8 @@
 import React from 'react'
 import { ShoppingContext } from '../../Context'
+import { ImageState } from '../ImageState';
+
+
 import {
     Drawer,
     DrawerContent, 
@@ -24,9 +27,7 @@ function ProductDetail() {
                     </DrawerHeader>
                     <div className='w-full p-5'>
                         <figure className='w-full h-[300px]'>
-                            <img className='w-full h-full rounded-lg object-cover' 
-                            src={showProduct.image} 
-                            alt={showProduct.name}/>
+                            <ImageState src={showProduct.image} alt={showProduct.name} /> 
                         </figure>
                         <DrawerFooter className='grid grid-cols-1 m-2'>
                             <div className='flex justify-between w-full'>
