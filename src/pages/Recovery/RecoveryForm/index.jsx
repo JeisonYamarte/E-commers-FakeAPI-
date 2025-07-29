@@ -1,7 +1,9 @@
 import React from 'react'
 import { sendRecoveryEmail } from '../../../api/accounts';
+import { CircleXIcon } from 'lucide-react';
 
 function RecoveryForm (){
+    const [showMessageError, setShowMessageError] = React.useState(false)
 
     const form = React.useRef(null)
 
@@ -9,7 +11,13 @@ function RecoveryForm (){
             const formData = new FormData(form.current);
             const email = formData.get('email').trim();
             
-            const response = await sendRecoveryEmail(email); 
+            const response = await sendRecoveryEmail(email);
+            
+            if(!response) {
+                setShowMessageError(true)
+                return
+            }
+            
             
             form.current.reset();
             alert("Recovery email sent successfully!", response);
@@ -26,11 +34,12 @@ function RecoveryForm (){
                 <div className='flex flex-col gap-1'>
                     <label className='font-light text-sm' htmlFor="email">Your email</label>
                     <input 
-                    className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+                    className='border text-black border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
                     type="email" 
                     name="email" 
                     id='email'
                     />
+                    {showMessageError && <div className='flex gap-1 text-red-500'><CircleXIcon/> <p>email does not exist</p> </div>}
                 </div>
                 
                 <button className='bg-black text-white w-60 rounded-lg py-3 mt-4 mb-2' type="submit">

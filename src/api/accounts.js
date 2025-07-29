@@ -10,7 +10,7 @@ export const createAccount = async (userData) => {
         return response;
     } catch (error){
         console.error("Error creating user:", error);
-        throw error;
+        return null
     }
 }
 
@@ -58,7 +58,7 @@ export const sendRecoveryEmail = async (email) => {
         return response.date;
     } catch (error){
         console.error("Error sending recovery email:", error);
-        throw error;
+        return null
     }
 }
 

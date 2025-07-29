@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ShoppingContext } from "../../../Context";
 import { setAuthToken } from "../../../api/axiosConfig";
 import { createAccount } from "../../../api/accounts";
+import { CircleXIcon } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -22,6 +23,8 @@ function SaveNewAccount ({setRender}){
         saveSignOut,
         setEmail
     } = React.useContext(ShoppingContext)
+
+    const [showMessageError, setShowMessageError] = React.useState(false)
 
     const form = React.useRef(null); 
     const navigate = useNavigate();
@@ -43,7 +46,11 @@ function SaveNewAccount ({setRender}){
         console.log(data);
         
         
-        const response = await createAccount(data)
+        const response = await createAccount(data);
+        if(!response){
+            setShowMessageError(true);
+            return
+        }
         
         
         saveAccount(response);
@@ -119,6 +126,7 @@ function SaveNewAccount ({setRender}){
                                 placeholder="m@example.com" 
                                 required 
                             />
+                            {showMessageError && <div className='flex gap-1 text-red-500 text-sm'><CircleXIcon className="w-5"/> <p>the email already exists</p> </div>}
                         </div>
                         <div className="grid gap-2">
                             <Label htmlFor="lastName">Password:</Label>

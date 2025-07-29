@@ -93,7 +93,9 @@ function Navbar (){
             
             <ul className="lg:flex items-center gap-3 hidden ">
                 <NavbarRightList />
-                <li onClick={()=> openCheckoutSideMenu()}   className={`flex cursor-pointer ${isAddProduct ? "animate-wobble-ver-left duration-400" : ""}`}>
+                <li onClick={()=> {
+                    if(count > 0) openCheckoutSideMenu()
+                    }}   className={`flex cursor-pointer ${isAddProduct ? "animate-wobble-ver-left duration-400" : ""}`}>
                     <ShoppingCartIcon className='w-4 h-4 '  /> <span className=' flex items-center justify-center w-4 h-4 rounded-full bg-slate-300'>{count}</span>
                 </li>
             </ul>

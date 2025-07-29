@@ -5,6 +5,7 @@ import { Layout } from '../../Components/Layout'
 import { CardItems } from '../../Components/CardItems'
 import { ShoppingContext } from '../../Context'
 import { LoadingCard } from '../../Components/LoadingCard';
+import { NotResult } from '../../Components/NotResult';
 
 
 function Home() {
@@ -59,7 +60,7 @@ function Home() {
       </>)
     } else {
       return (
-        <div>  We don't have anything </div>
+        <NotResult />
       )
     }
   }

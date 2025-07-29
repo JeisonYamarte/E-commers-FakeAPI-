@@ -25,7 +25,7 @@ function RecoveryChangePassword ({token}){
                 <div className='flex flex-col gap-1'>
                     <label className='font-light text-sm' htmlFor="password">Password</label>
                     <input 
-                    className='border border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
+                    className='border text-black border-black rounded-lg placeholder:font-light placeholder:text-sm placeholder:text-black/60 focus:outline-none py-2 px-4'
                     type="password" 
                     name="password" 
                     id='password'
