@@ -47,7 +47,7 @@ function CardItems({data}) {
     onClick={()=> setProductToShow()}
     >
         <figure className='relative mb-2 w-full h-4/5 '>
-            <CardDescription className='absolute bottom-0 left-0 bg-white/20 rounded-lg text-hueso text-xs m-2 px-3 py-0.5'>{data?.category.name}</CardDescription>
+            <CardDescription className='absolute bottom-0 left-0 bg-white/20 rounded-lg text-hueso text-xs m-2 px-3 py-0.5'>{data?.category?.name}</CardDescription>
             <ImageState src={data?.image} alt={data?.name}/>
             <Button className='absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1 hover:bg-salvia' 
             onClick={(event)=> {
