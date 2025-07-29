@@ -58,8 +58,8 @@ function CardItems({data}) {
             </Button>
         </figure>
         <CardFooter className='flex justify-between items-center w-full px-0 text-hueso'>
-            <span className='text-sm font-light '>{data.name}</span>
-            <span className='text-lg font-medium '>{`$${data.price}`}</span>
+            <span className='text-sm font-light '>{data?.name}</span>
+            <span className='text-lg font-medium '>{`$${data?.price}`}</span>
         </CardFooter>
     </Card>
   )
